@@ -1,14 +1,14 @@
 import React from 'react'
 import { Text, Button, View } from 'react-native';
 
-export default class MapScreen extends React.Component{
+export default class SettingsScreen extends React.Component{
     static navigationOptions = {
-        title: 'Map Screen',
+        title: 'Settings Screen',
     };
     render(){
         return(
         <View>
-        <Text> Hello this is the Map Screen </Text>
+        <Text> Hello this is the Settings Screen </Text>
         <Button onPress={() => this.props.navigation.navigate('ProfileScreen')} title="Back to Profile Page"/>
         </View>
         )

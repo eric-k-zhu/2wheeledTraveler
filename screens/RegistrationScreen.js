@@ -9,7 +9,7 @@ export default class RegistrationScreen extends React.Component{
         return(
         <View>
         <Text> Hello this is the Registration Screen </Text>
-        <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Back to Login Page"/>
+        <Button onPress={() => this.props.navigation.navigate('ProfileScreen')} title="Login"/>
         </View>
         )
     }
