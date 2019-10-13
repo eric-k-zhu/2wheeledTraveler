@@ -9,7 +9,7 @@ export default class MapScreen extends React.Component{
         return(
         <View>
         <Text> Hello this is the Map Screen </Text>
-        <Button onPress={() => this.props.navigation.navigate('RegistrationScreen')} title="Back to Registration Page"/>
+        <Button onPress={() => this.props.navigation.navigate('ProfileScreen')} title="Back to Profile Page"/>
         </View>
         )
     }
