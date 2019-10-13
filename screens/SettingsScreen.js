@@ -9,7 +9,9 @@ export default class SettingsScreen extends React.Component{
         return(
         <View>
         <Text> Hello this is the Settings Screen </Text>
-        <Button onPress={() => this.props.navigation.navigate('ProfileScreen')} title="Back to Profile Page"/>
+        <Button onPress={() => this.props.navigation.navigate('SpeedScreen')} title="Speed"/>
+        <Button onPress={() => this.props.navigation.navigate('GasScreen')} title="Gas"/>
+        <Button onPress={() => this.props.navigation.navigate('ContactScreen')} title="Contacts"/>
         </View>
         )
     }
