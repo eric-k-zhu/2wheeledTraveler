@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, View, TouchableHighlight, StyleSheet, TextInput, AlertIOS } from 'react-native';
+import { Text, Button, View, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
 import { db } from '../config';
 
 let addItem = item => {
@@ -35,7 +35,7 @@ class AddItem extends React.Component {
     };
     handleSubmit = () => {
       addItem(this.state.name);
-      AlertIOS.alert('Item saved successfully');
+      Alert.alert('Item saved successfully');
     };
   
     render() {
