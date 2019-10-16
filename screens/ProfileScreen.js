@@ -10,7 +10,7 @@ export default class ProfileScreen extends React.Component{
         <View>
         <Text> Hello this is the Profile Screen </Text>
         <Button onPress={() => this.props.navigation.navigate('RegistrationScreen')} title="Logout"/>
-        <Button onPress={() => this.props.navigation.navigate('MapScreen')} title="ToMap"/>
+        <Button onPress={() => this.props.navigation.navigate('MapScreen')} title="Map"/>
         <Button onPress={() => this.props.navigation.navigate('SettingsScreen')} title="Settings"/>
         </View>
         )
