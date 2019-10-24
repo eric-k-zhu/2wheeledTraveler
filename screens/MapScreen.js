@@ -10,7 +10,7 @@ export default class MapScreen extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style= {styles.main}>
                 <View style={{flex: 0.5, justifyContent: 'center'}}>
                     <Text style={{textAlign: 'center'}} > Speed        Distance        Time</Text>
                 </View>
@@ -36,13 +36,49 @@ class MapComponent extends React.Component {
                 style={{ flex: 1 }}
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation
-                initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }}
+
             />
         );
     }
 }
+
+const styles = StyleSheet.create({
+    main: {
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: '#20b353'
+    },
+    title: {
+      marginBottom: 20,
+      fontSize: 25,
+      textAlign: 'center'
+    },
+    itemInput: {
+      height: 50,
+      padding: 4,
+      marginRight: 5,
+      fontSize: 23,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderRadius: 8,
+      backgroundColor: 'white', 
+      marginBottom: 15
+    },
+    buttonText: {
+      fontSize: 18,
+      color: '#111',
+      alignSelf: 'center'
+    },
+    button: {
+      height: 45,
+      flexDirection: 'row',
+      backgroundColor: 'white',
+      borderColor: 'white',
+      borderWidth: 1,
+      borderRadius: 8,
+      marginBottom: 10,
+      marginTop: 10,
+      alignSelf: 'stretch',
+      justifyContent: 'center'
+    }
+  });
