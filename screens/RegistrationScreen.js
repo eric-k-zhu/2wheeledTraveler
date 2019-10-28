@@ -2,15 +2,16 @@ import React from 'react'
 import { Text, Button, View, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
 import { db } from '../config';
 
-let addItem = item => {
-  db.ref('/items').push({
-    name: item
+let addItem = (item, item2) => {
+  db.ref('/users').push({
+    username: item,
+    password: item2
   });
 };
 
 export default class RegistrationScreen extends React.Component {
     static navigationOptions = {
-        title: 'Registration Screen',
+        title: 'Register',
     };
     render() {
         return (
@@ -25,30 +26,38 @@ export default class RegistrationScreen extends React.Component {
 
 class AddItem extends React.Component {
     state = {
-      name: ''
+      username: '',
+      password: ''
     };
   
-    handleChange = e => {
+    handleUserChange = e => {
       this.setState({
-        name: e.nativeEvent.text
+        username: e.nativeEvent.text
+      });
+    };
+    handlePWChange = e => {
+      this.setState({
+        password: e.nativeEvent.text
       });
     };
     handleSubmit = () => {
-      addItem(this.state.name);
+      addItem(this.state.username, this.state.password);
       Alert.alert('Item saved successfully');
     };
   
     render() {
       return (
         <View style={styles.main}>
-          <Text style={styles.title}>Add User</Text>
-          <TextInput style={styles.itemInput} onChange={this.handleChange} />
+          <Text>Email Address:</Text>
+          <TextInput style={styles.itemInput} onChange={this.handleUserChange} />
+          <Text>Password:</Text>
+          <TextInput style={styles.itemInput} onChange={this.handlePWChange} />
           <TouchableHighlight
             style={styles.button}
             underlayColor="white"
             onPress={this.handleSubmit}
           >
-            <Text style={styles.buttonText}>Register</Text>
+            <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
         </View>
       );
@@ -60,8 +69,7 @@ class AddItem extends React.Component {
       flex: 1,
       padding: 30,
       flexDirection: 'column',
-      justifyContent: 'center',
-      backgroundColor: '#6565fc'
+      backgroundColor: '#20b353'
     },
     title: {
       marginBottom: 20,
@@ -76,7 +84,8 @@ class AddItem extends React.Component {
       borderWidth: 1,
       borderColor: 'white',
       borderRadius: 8,
-      color: 'white'
+      backgroundColor: 'white', 
+      marginBottom: 15
     },
     buttonText: {
       fontSize: 18,
