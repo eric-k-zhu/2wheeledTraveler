@@ -12,11 +12,15 @@ export default class RegistrationScreen extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "", 
+      password2: ""
     };
   }
 
-  SignUp = (email, password) => {
+  SignUp = (email, password, password2) => {
+    if (!(password === password2)) {
+      return Alert.alert("Passwords do not match");
+    }
     app
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -52,9 +56,18 @@ export default class RegistrationScreen extends React.Component {
               onChangeText={password => this.setState({ password })}
             />
           </Item>
+          <Item floatingLabel>
+            <Label>Retype Password</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={password2 => this.setState({ password2 })}
+            />
+          </Item>
         </Form>
 
-        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password)}>
+        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password, this.state.password2)}>
           <Text>Signup</Text>
         </Button>
         <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
