@@ -1,25 +1,12 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image, Alert } from 'react-native';
-import { Container, Item, Form, Input, Button, Label } from "native-base";
-//import { firebaseConfig } from '../config';
-import * as firebase from "firebase";
-const firebaseConfig = {
-    apiKey: "AIzaSyB1zBIpnHT8vdRoHCd24RxUEPQAkVkz1YE",
-    authDomain: "wheeled-traveler.firebaseapp.com",
-    databaseURL: "https://wheeled-traveler.firebaseio.com",
-    projectId: "wheeled-traveler",
-    storageBucket: "wheeled-traveler.appspot.com",
-    messagingSenderId: "699300672684",
-    appId: "1:699300672684:web:3ea07bfac92cd25e66db09",
-    measurementId: "G-0CW52S3SJC"
-  };
-firebase.initializeApp(firebaseConfig);
+import { Item, Form, Input, Button, Label } from "native-base";
+import { app } from '../config';
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
         title: 'Login',
     };
-
 
     constructor(props) {
         super(props);
@@ -28,23 +15,10 @@ export default class LoginScreen extends React.Component {
             password: ""
         };
     }
-    SignUp = (email, password) => {
-        try {
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then(user => {
-                    console.log("success");
-                    Alert.alert('Item saved successfully');
-                });
-        } catch (error) {
-            console.log(error.toString(error));
-        }
-    };
 
     LogIn = (email, password) => {
         try {
-          firebase
+          app
              .auth()
              .signInWithEmailAndPassword(email, password)
              .then(res => {
@@ -86,7 +60,7 @@ export default class LoginScreen extends React.Component {
                             <Text>Login</Text>
                         </Button>
                     </Form>
-                    <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password)}>
+                    <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
                         <Text>Signup</Text>
                     </Button>
             </View>
