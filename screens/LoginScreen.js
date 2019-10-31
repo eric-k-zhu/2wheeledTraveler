@@ -17,18 +17,19 @@ export default class LoginScreen extends React.Component {
     }
 
     LogIn = (email, password) => {
-        try {
-          app
-             .auth()
-             .signInWithEmailAndPassword(email, password)
-             .then(res => {
-                 console.log(res.user.email);
-                 this.props.navigation.navigate('ProfileScreen');
-          });
-    } catch (error) {
-          console.log(error.toString(error));
-        }
-      };
+        app
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(res => {
+                console.log(res.user.email);
+                // fulfillment
+                this.props.navigation.navigate('ProfileScreen');
+            }, reason => {
+                // rejections
+                Alert.alert("Incorrect username or password. Please try again.")
+            });
+
+    };
 
     render() {
         return (
@@ -38,31 +39,31 @@ export default class LoginScreen extends React.Component {
                     source={require('../logo.png')}
                 />
                 <Text style={styles.title}>2 Wheeled Traveler</Text>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>Email</Label>
-                            <Input
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                onChangeText={email => this.setState({ email })}
-                            />
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>Password</Label>
-                            <Input
-                                secureTextEntry={true}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                onChangeText={password => this.setState({ password })}
-                            />
-                        </Item>
-                        <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
-                            <Text>Login</Text>
-                        </Button>
-                    </Form>
-                    <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
-                        <Text>Signup</Text>
+                <Form>
+                    <Item floatingLabel>
+                        <Label>Email</Label>
+                        <Input
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={email => this.setState({ email })}
+                        />
+                    </Item>
+                    <Item floatingLabel>
+                        <Label>Password</Label>
+                        <Input
+                            secureTextEntry={true}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={password => this.setState({ password })}
+                        />
+                    </Item>
+                    <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
+                        <Text>Login</Text>
                     </Button>
+                </Form>
+                <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
+                    <Text>Signup</Text>
+                </Button>
             </View>
         )
     }
@@ -74,23 +75,6 @@ const styles = StyleSheet.create({
         padding: 50,
         flexDirection: 'column',
         backgroundColor: '#20b353'
-    },
-    buttonText: {
-        fontSize: 18,
-        color: '#111',
-        alignSelf: 'center'
-    },
-    button: {
-        height: 45,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 8,
-        marginBottom: 10,
-        marginTop: 10,
-        alignSelf: 'stretch',
-        justifyContent: 'center'
     },
     image: {
         width: 200,

@@ -17,18 +17,17 @@ export default class RegistrationScreen extends React.Component {
   }
 
   SignUp = (email, password) => {
-    try {
-      app
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(user => {
-          console.log("success");
-          Alert.alert('Item saved successfully');
-          this.props.navigation.navigate('ProfileScreen');
-        });
-    } catch (error) {
-      console.log(error.toString(error));
-    }
+    app
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        console.log("success");
+        Alert.alert('Item saved successfully');
+        this.props.navigation.navigate('ProfileScreen');
+      }, reason => {
+        // rejections
+        Alert.alert("Password must be at least 6 characters.")
+      });
   };
 
   render() {
@@ -58,7 +57,7 @@ export default class RegistrationScreen extends React.Component {
         <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password)}>
           <Text>Signup</Text>
         </Button>
-
+        <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
       </View>
     )
   }
@@ -76,36 +75,15 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center'
   },
-  itemInput: {
-    height: 50,
-    padding: 4,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    backgroundColor: 'white',
-    marginBottom: 15
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#111',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
   Button: {
     backgroundColor: 'white',
     marginTop: 20
+  }, 
+  link: {
+    alignSelf: "center",
+    backgroundColor: "transparent", 
+    textDecorationLine: "underline", 
+    textDecorationColor: "blue",
+    color: "blue"
   }
 });
