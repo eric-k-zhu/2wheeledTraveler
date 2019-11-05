@@ -1,14 +1,30 @@
 import React from 'react'
-import { Text, Button, View, StyleSheet } from 'react-native';
+import { Text, Button, View, StyleSheet,Image } from 'react-native';
+import {app} from '../config';
+
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     title: 'Profile',
   };
 
+  state = { currentUser: null }
+  
+  componentDidMount() {
+    const { currentUser } = app.auth()
+    this.setState({ currentUser })
+}
+
   render() {
     return (
+     
       <View style={styles.main}>
+        <Text>{app.auth().currentUser.displayName}</Text>
+        <View style={styles.main}>
+          <Image
+              source={require('../Images/settings-512.png')}
+          />
+      </View>
         <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout" />
         <Button onPress={() => this.props.navigation.navigate('MapScreen')} title="Map" />
         <Button onPress={() => this.props.navigation.navigate('SettingsScreen')} title="Settings" />
@@ -22,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
     flexDirection: 'column',
-    backgroundColor: '#20b353'
+    backgroundColor: '#FFFFFF'
   },
   title: {
     marginBottom: 20,

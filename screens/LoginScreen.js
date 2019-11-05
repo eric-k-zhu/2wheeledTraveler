@@ -36,7 +36,7 @@ export default class LoginScreen extends React.Component {
             <View style={styles.main}>
                 <Image
                     style={styles.image}
-                    source={require('../logo.png')}
+                    source={require('../Images/logo.png')}
                 />
                 <Text style={styles.title}>2 Wheeled Traveler</Text>
                 <Form>

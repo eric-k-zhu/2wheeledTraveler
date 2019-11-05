@@ -11,34 +11,51 @@ export default class RegistrationScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: "",
       email: "",
       password: "", 
       password2: ""
     };
   }
 
-  SignUp = (email, password, password2) => {
+  SignUp = (displayName, email, password, password2) => {
     if (!(password === password2)) {
-      return Alert.alert("Passwords do not match");
+      return Alert.alert("Passwords do not match Client Side");
     }
     app
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        console.log("success");
-        Alert.alert('Item saved successfully');
-        this.props.navigation.navigate('ProfileScreen');
+      .then((user1) => {
+        //need to update default profile image picture as well
+        if(user1.user){
+          user1.user.updateProfile({displayName: displayName}).then(
+            s => {
+              console.log("success");
+              Alert.alert('Item saved successfully');
+              this.props.navigation.navigate('ProfileScreen');
+            }
+          )
+        }
       }, reason => {
         // rejections
+        // need to handle and specify more errors as well
         Alert.alert("Password must be at least 6 characters.")
       });
+      
   };
 
   render() {
     return (
       <View style={styles.main}>
-
         <Form>
+        <Item floatingLabel>
+            <Label>Name</Label>
+            <Input
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={name => this.setState({ name })}
+            />
+          </Item>
           <Item floatingLabel>
             <Label>Email</Label>
             <Input
@@ -67,10 +84,12 @@ export default class RegistrationScreen extends React.Component {
           </Item>
         </Form>
 
-        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password, this.state.password2)}>
+        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.displayName, this.state.email, this.state.password, this.state.password2)}>
           <Text>Signup</Text>
         </Button>
-        <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
+        <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout">
+          <Text style={styles.link}>Back to Log In</Text>
+          </Button>
       </View>
     )
   }
