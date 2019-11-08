@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 
 export default class MapScreen extends React.Component {
