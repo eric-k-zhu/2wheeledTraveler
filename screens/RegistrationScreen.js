@@ -18,7 +18,7 @@ export default class RegistrationScreen extends React.Component {
     };
   }
 
-  SignUp = (name, email, password, password2) => {
+  SignUp = (displayName, email, password, password2) => {
     if (!(password === password2)) {
       return Alert.alert("Passwords do not match Client Side");
     }
@@ -28,7 +28,7 @@ export default class RegistrationScreen extends React.Component {
       .then((user1) => {
         //need to update default profile image picture as well
         if(user1.user){
-          user1.user.updateProfile({displayName: name}).then(
+          user1.user.updateProfile({displayName: displayName}).then(
             s => {
               console.log("success");
               Alert.alert('Item saved successfully');
@@ -84,7 +84,7 @@ export default class RegistrationScreen extends React.Component {
           </Item>
         </Form>
 
-        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.name, this.state.email, this.state.password, this.state.password2)}>
+        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.displayName, this.state.email, this.state.password, this.state.password2)}>
           <Text>Signup</Text>
         </Button>
         <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout">
