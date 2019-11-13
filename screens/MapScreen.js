@@ -6,7 +6,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 export default class MapScreen extends React.Component {
     static navigationOptions = {
         title: 'Map',
-    };
+    }; 
 
     render() {
         return (

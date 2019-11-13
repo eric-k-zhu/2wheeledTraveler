@@ -13,6 +13,9 @@ const AppNavigator = createStackNavigator({
         RegistrationScreen: RegistrationScreen,
         MapScreen: MapScreen,
         SettingsScreen: SettingsNavigator
+      }, 
+      {
+        headerMode: 'none'
       })
 
 export default createAppContainer(AppNavigator);
