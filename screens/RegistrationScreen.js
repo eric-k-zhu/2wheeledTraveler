@@ -28,10 +28,21 @@ export default class RegistrationScreen extends React.Component {
         console.log("success");
         Alert.alert('Item saved successfully');
         this.props.navigation.navigate('ProfileScreen');
-      }, reason => {
-        // rejections
-        Alert.alert("Password must be at least 6 characters.")
+      // }, reason => {
+      })
+      .catch(function(error) {
+        console.log('Error fetching user data:', error);
+        Alert.alert(error.message);
       });
+        // rejections
+        //Alert.alert(error.message);
+        // if(password.lengthf < 6){
+        //   Alert.alert("Password must be at least 6 characters.");
+        // } else{
+        //   Alert.alert("User already exists");
+        // }
+        
+      // });
   };
 
   render() {
