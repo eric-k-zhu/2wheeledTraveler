@@ -106,39 +106,31 @@ export default class MapScreen extends React.Component {
 
    render() {
     return (
-      <MapView
-        provider={ PROVIDER_GOOGLE }
-        style={ styles.map }
-        showsUserLocation={ true }
-        region={ this.state.region }
-        onRegionChange={ region => this.setState({region}) }
-        onRegionChangeComplete={ region => this.setState({region}) }
-      >
-        <MapView.Marker
-          coordinate={ this.state.region }
-        />
-      </MapView>
+      <View style= {styles.main}>
+                <View style={{flex: 0.5, justifyContent: 'center'}}>
+                    <Text style={{textAlign: 'center'}} > Speed        Distance        Time</Text>
+                </View>
+                <View style={{flex: 3}}> 
+                  <MapView
+                      provider={ PROVIDER_GOOGLE }
+                      style={ styles.map }
+                      showsUserLocation={ true }
+                      region={ this.state.region }
+                      onRegionChange={ region => this.setState({region}) }
+                      onRegionChangeComplete={ region => this.setState({region}) }>
+                    <MapView.Marker
+                            coordinate={ this.state.region }
+                      />
+                    </MapView>
+                </View>
+                <View style={{flex: 0.5, justifyContent: 'center'}}>
+                    <Text style={{textAlign: 'center'}}>Find a Gas Station         Send Location</Text>
+                </View>
+            </View>
     );
   }
 
 
-}
-
-class MapComponent extends React.Component {
-    render() {
-
-        return (
-
-          <MapView style={styles.map} initialRegion={{
-            latitude:-6.270565,
-            longitude:106.759550,
-            latitudeDelta: 1,
-            longitudeDelta: 1
-           }}>
-     
-           </MapView>
-        );
-    }
 }
 
 const styles = StyleSheet.create({
