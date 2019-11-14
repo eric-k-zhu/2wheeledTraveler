@@ -1,6 +1,7 @@
 import React from 'react'
-import { Text, Button, View, StyleSheet,Image } from 'react-native';
+import { Text, View, StyleSheet,Image } from 'react-native';
 import {app} from '../config';
+import {Button} from "native-base";
 
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -50,8 +51,12 @@ export default class ProfileScreen extends React.Component {
        </View>
        
        <View style={styles.bottomContainer}>
-         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')} title="Map" />
-         <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout" />
+         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')}>
+           <Text style={styles.buttonText}>Map</Text>
+           </Button>
+         <Button  style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')}>
+           <Text style={styles.link}>Log out</Text>
+           </Button>
        </View>
      
      </View>
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   middleContainer:{
-    flex:3
+    flex:2
   },
   bottomContainer:{
     flex:1
@@ -109,15 +114,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: 'green',
-    borderColor: 'green',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: '#56ba58',
     marginTop: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
+    marginBottom: 30
+  },
+  buttonText: {
+    color: 'white', 
+    fontSize: 20
+},
+link: {
+  alignSelf: "center",
+  backgroundColor: "transparent",
+  color: "black",
+  fontSize: 20
+}
 });
