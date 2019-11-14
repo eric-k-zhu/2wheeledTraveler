@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Alert } from 'react-native';
+import { Text, View, StyleSheet, Alert, ScrollView } from 'react-native';
 import { Item, Form, Input, Button, Label } from "native-base";
 import { app } from '../config';
 
@@ -28,15 +28,17 @@ export default class RegistrationScreen extends React.Component {
         console.log("success");
         Alert.alert('Item saved successfully');
         this.props.navigation.navigate('ProfileScreen');
-      }, reason => {
-        // rejections
-        Alert.alert("Password must be at least 6 characters.")
+      })
+      .catch(function (error) {
+        console.log('Error fetching user data:', error);
+        Alert.alert(error.message);
       });
   };
 
   render() {
     return (
       <View style={styles.main}>
+        <ScrollView keyboardShouldPersistTaps='never'>
 
         <Text style={styles.title}>Register New User</Text>
         <Form>
@@ -71,6 +73,7 @@ export default class RegistrationScreen extends React.Component {
           <Text style={styles.buttonText}>Signup</Text>
         </Button>
         <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
+        </ScrollView>
       </View>
     )
   }

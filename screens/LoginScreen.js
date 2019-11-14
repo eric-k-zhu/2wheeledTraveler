@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Alert } from 'react-native';
+import { Text, View, StyleSheet, Image, Alert, ScrollView } from 'react-native';
 import { Item, Form, Input, Button, Label } from "native-base";
 import { app } from '../config';
 
@@ -30,6 +30,7 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={styles.main}>
+                <ScrollView keyboardShouldPersistTaps='never'>
                 <Image
                     style={styles.image}
                     source={require('../logo.png')}
@@ -59,7 +60,7 @@ export default class LoginScreen extends React.Component {
                 </Form>
                 <Text style={styles.Text}>Don't have an account?</Text>
                 <Button style={styles.link} onPress={() => this.props.navigation.navigate('RegistrationScreen')}><Text style={styles.link}>Create Account</Text></Button>
-
+                </ScrollView>
             </View>
         )
     }
