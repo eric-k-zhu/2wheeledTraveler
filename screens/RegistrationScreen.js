@@ -39,38 +39,40 @@ export default class RegistrationScreen extends React.Component {
     return (
       <View style={styles.main}>
         <ScrollView keyboardShouldPersistTaps='never'>
-          <Form>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={email => this.setState({ email })}
-              />
-            </Item>
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input
-                secureTextEntry={true}
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={password => this.setState({ password })}
-              />
-            </Item>
-            <Item floatingLabel>
-              <Label>Retype Password</Label>
-              <Input
-                secureTextEntry={true}
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={password2 => this.setState({ password2 })}
-              />
-            </Item>
-          </Form>
-          <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password, this.state.password2)}>
-            <Text>Signup</Text>
-          </Button>
-          <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
+
+        <Text style={styles.title}>Register New User</Text>
+        <Form>
+          <Item floatingLabel>
+            <Label style={styles.Label}>Email</Label>
+            <Input
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={email => this.setState({ email })}
+            />
+          </Item>
+          <Item floatingLabel>
+            <Label style={styles.Label}>Password</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={password => this.setState({ password })}
+            />
+          </Item>
+          <Item floatingLabel>
+            <Label style={styles.Label}>Retype Password</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={password2 => this.setState({ password2 })}
+            />
+          </Item>
+        </Form>
+        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password, this.state.password2)}>
+          <Text style={styles.buttonText}>Signup</Text>
+        </Button>
+        <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
         </ScrollView>
       </View>
     )
@@ -82,22 +84,33 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
     flexDirection: 'column',
-    backgroundColor: '#20b353'
+    backgroundColor: '#ffffff'
   },
   title: {
     marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center'
+    fontSize: 30,
+    textAlign: 'center',
+    paddingTop: 50,
+    color: '#56ba58'
   },
   Button: {
-    backgroundColor: 'white',
-    marginTop: 20
+    backgroundColor: '#56ba58',
+    marginTop: 50, 
+    marginBottom: 20
   },
   link: {
     alignSelf: "center",
     backgroundColor: "transparent",
     textDecorationLine: "underline",
-    textDecorationColor: "blue",
-    color: "blue"
+    color: "#56ba58",
+    fontSize: 20
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20
+  },
+  Label: {
+    fontSize: 20
   }
+
 });

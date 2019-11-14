@@ -4,10 +4,6 @@ import { Item, Form, Input, Button, Label } from "native-base";
 import { app } from '../config';
 
 export default class LoginScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Login',
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -35,36 +31,35 @@ export default class LoginScreen extends React.Component {
         return (
             <View style={styles.main}>
                 <ScrollView keyboardShouldPersistTaps='never'>
-                    <Image
-                        style={styles.image}
-                        source={require('../logo.png')}
-                    />
-                    <Text style={styles.title}>2 Wheeled Traveler</Text>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>Email</Label>
-                            <Input
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                onChangeText={email => this.setState({ email })}
-                            />
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>Password</Label>
-                            <Input
-                                secureTextEntry={true}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                onChangeText={password => this.setState({ password })}
-                            />
-                        </Item>
-                        <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
-                            <Text>Login</Text>
-                        </Button>
-                    </Form>
-                    <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
-                        <Text>Signup</Text>
+                <Image
+                    style={styles.image}
+                    source={require('../logo.png')}
+                />
+                <Text style={styles.title}>2 Wheeled Traveler</Text>
+                <Form>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Email</Label>
+                        <Input
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={email => this.setState({ email })}
+                        />
+                    </Item>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Password</Label>
+                        <Input
+                            secureTextEntry={true}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={password => this.setState({ password })}
+                        />
+                    </Item>
+                    <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
+                        <Text style={styles.buttonText}>Login</Text>
                     </Button>
+                </Form>
+                <Text style={styles.Text}>Don't have an account?</Text>
+                <Button style={styles.link} onPress={() => this.props.navigation.navigate('RegistrationScreen')}><Text style={styles.link}>Create Account</Text></Button>
                 </ScrollView>
             </View>
         )
@@ -76,20 +71,40 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 50,
         flexDirection: 'column',
-        backgroundColor: '#20b353'
+        backgroundColor: '#ffffff', 
     },
     image: {
         width: 200,
         height: 200,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        paddingTop: 50
     },
     title: {
         marginBottom: 20,
-        fontSize: 25,
+        fontSize: 30,
         textAlign: 'center'
     },
     Button: {
-        backgroundColor: 'white',
-        marginTop: 20
+        backgroundColor: '#56ba58',
+        marginTop: 20,
+    }, 
+    link: {
+        alignSelf: "center",
+        backgroundColor: "transparent", 
+        textDecorationLine: "underline", 
+        color: "#56ba58", 
+        fontSize: 20
+      }, 
+    Text: {
+        textAlign: "center",
+        paddingTop: 40, 
+        fontSize: 20
+    }, 
+    buttonText: {
+        color: 'white', 
+        fontSize: 20
+    },
+    Label: {
+        fontSize: 20
     }
 });
