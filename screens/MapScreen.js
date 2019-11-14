@@ -1,28 +1,125 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
+let { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class MapScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Map',
+  static navigationOptions = {
+    title: 'Map',
+};
+  constructor(){
+    super();
+  
+
+  this.state = {
+    region: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    }
+  };  
+}
+
+    /*findLongitude = () => {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          //const location = JSON.stringify(position);
+          const currentLongitude = JSON.stringify(position.coords.longitude);
+          const currentLatitude = JSON.stringify(position.coords.latitude);
+  
+          this.setState({ currentLongitude });
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      );
     };
 
-    render() {
-        return (
-            <View style= {styles.main}>
-                <View style={{flex: 0.5, justifyContent: 'center'}}>
-                    <Text style={{textAlign: 'center'}} > Speed        Distance        Time</Text>
-                </View>
-                <View style={{flex: 3}}> 
-                    <MapComponent />
-                </View>
-                <View style={{flex: 0.5, justifyContent: 'center'}}>
-                    <Text style={{textAlign: 'center'}}>Find a Gas Station         Send Location</Text>
-                </View>
-            </View>
-        )
-    }
+    findLatitude = () => {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          //const location = JSON.stringify(position);
+          const currentLatitude = JSON.stringify(position.coords.latitude);
+  
+          this.setState({ currentLatitude });
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      );
+    };
+    */
+
+   /*componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+       (position) => {
+         console.log("wokeeey");
+         console.log(position);
+         this.setState({
+           latitude: position.coords.latitude,
+           longitude: position.coords.longitude,
+           error: null,
+         });
+       },
+       (error) => this.setState({ error: error.message }),
+       { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+     );
+   }*/
+
+   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        });
+      },
+    (error) => console.log(error.message),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+   render() {
+    return (
+      <MapView
+        provider={ PROVIDER_GOOGLE }
+        style={ styles.map }
+        showsUserLocation={ true }
+        region={ this.state.region }
+        onRegionChange={ region => this.setState({region}) }
+        onRegionChangeComplete={ region => this.setState({region}) }
+      >
+        <MapView.Marker
+          coordinate={ this.state.region }
+        />
+      </MapView>
+    );
+  }
 
 
 }
@@ -32,17 +129,26 @@ class MapComponent extends React.Component {
 
         return (
 
-            <MapView
-                style={{ flex: 1 }}
-                provider={PROVIDER_GOOGLE}
-                showsUserLocation
-
-            />
+          <MapView style={styles.map} initialRegion={{
+            latitude:-6.270565,
+            longitude:106.759550,
+            latitudeDelta: 1,
+            longitudeDelta: 1
+           }}>
+     
+           </MapView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
     main: {
       flex: 1,
       flexDirection: 'column',
