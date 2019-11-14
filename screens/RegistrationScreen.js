@@ -28,7 +28,8 @@ export default class RegistrationScreen extends React.Component {
       .then((user1) => {
         //need to update default profile image picture as well
         if(user1.user){
-          user1.user.updateProfile({displayName: name}).then(
+          user1.user.updateProfile({displayName: name,
+          photoURL: 'gs://wheeled-traveler.appspot.com/icons8-user-90.png'}).then(
             s => {
               console.log("success");
               Alert.alert('Item saved successfully');
