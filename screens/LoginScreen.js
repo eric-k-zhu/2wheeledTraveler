@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Alert } from 'react-native';
+import { Text, View, StyleSheet, Image, Alert, ScrollView } from 'react-native';
 import { Item, Form, Input, Button, Label } from "native-base";
 import { app } from '../config';
 
@@ -34,36 +34,38 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={styles.main}>
-                <Image
-                    style={styles.image}
-                    source={require('../logo.png')}
-                />
-                <Text style={styles.title}>2 Wheeled Traveler</Text>
-                <Form>
-                    <Item floatingLabel>
-                        <Label>Email</Label>
-                        <Input
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onChangeText={email => this.setState({ email })}
-                        />
-                    </Item>
-                    <Item floatingLabel>
-                        <Label>Password</Label>
-                        <Input
-                            secureTextEntry={true}
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onChangeText={password => this.setState({ password })}
-                        />
-                    </Item>
-                    <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
-                        <Text>Login</Text>
+                <ScrollView keyboardShouldPersistTaps='never'>
+                    <Image
+                        style={styles.image}
+                        source={require('../logo.png')}
+                    />
+                    <Text style={styles.title}>2 Wheeled Traveler</Text>
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>Email</Label>
+                            <Input
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                onChangeText={email => this.setState({ email })}
+                            />
+                        </Item>
+                        <Item floatingLabel>
+                            <Label>Password</Label>
+                            <Input
+                                secureTextEntry={true}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                onChangeText={password => this.setState({ password })}
+                            />
+                        </Item>
+                        <Button full rounded success style={styles.Button} onPress={() => this.LogIn(this.state.email, this.state.password)}>
+                            <Text>Login</Text>
+                        </Button>
+                    </Form>
+                    <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
+                        <Text>Signup</Text>
                     </Button>
-                </Form>
-                <Button full rounded success style={styles.Button} onPress={() => this.props.navigation.navigate('RegistrationScreen')}>
-                    <Text>Signup</Text>
-                </Button>
+                </ScrollView>
             </View>
         )
     }
