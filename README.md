@@ -2,15 +2,14 @@
 
 Vintage motorcyclists have come to rely on cell phones more and more while riding their motorcycles. This app eliminates the need for multiple apps by combining features like speed, weather, and gas onto a single screen that overlays your standard mapping program.
 
-
 ## Getting started
 
--In order to start developing we are using expo to run our application during development. Follow the steps to install on the expo guide. 
--Our application is developed off the back of React Native and so to start development, follow the steps to install React-Native.
--We use npm to build our application and include all of our packages that we use so during installation of React-Native and Node.js make sure to include Node Packet Manager as well.
--After gaining access to our repository, to start development run `npm install` to install all packages neccessary to run our application.
--When ready to run a local server, run `npm start` this should run a script to automatically start expo. This can be verified by checking the `package.json` file.
--This start guide was written on 11/15/2019 and verified by Eric K Zhu(ekzhu703@gmail.com) on Windows 10; email me with any questions.
+- In order to start developing we are using expo to run our application during development. Follow the steps to install on the expo guide. 
+- Our application is developed off the back of React Native and so to start development, follow the steps to install React-Native.
+- We use npm to build our application and include all of our packages that we use so during installation of React-Native and Node.js make sure to include Node Packet Manager as well.
+- After gaining access to our repository, to start development run `npm install` to install all packages neccessary to run our application.
+- When ready to run a local server, run `npm start` this should run a script to automatically start expo. This can be verified by checking the `package.json` file.
+- This start guide was written on 11/15/2019 and verified by Eric K Zhu(ekzhu703@gmail.com) on Windows 10; email me with any questions.
 
 ## Testing
 
@@ -24,24 +23,20 @@ To view the coverage report, open the `index.html` file within the `/coverage/` 
 
 ## Deployment ***
 
-- Where does the production system live? How would a new developer get access to it?
-- Are there any staging or pre-production environments that developers can use?
-- What are the various pieces that the fully deployed software uses? For example, with Heroku, what addons does the app use?
-- Is continuous integration or continuous deployment enabled? If so, where does it live?
-
--Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permision from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
--Our fully deployed application will be hosted on the application stores, aka App Store and Google Play for iOS and Android.
-
+- Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permision from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
+- Our fully deployed application will be hosted on the application stores, aka App Store and Google Play for iOS and Android.
+- At this point in time, continuos deployment is not enabled.
 
 ## Technologies used
--We are using a firebase database to manage users and their data
--Our navigation is being provided by Google Maps
--Our application is being built off of the React Native infrastructure
+
+- We are using Google Firebase's database to manage users and their data
+- Our navigation is provided by Google Maps
+- Our application is built off of the React Native infrastructure
 
 ## Contributing
--Before contributing to the application, a new contributor must first request access from current admin Eric Zhu (ericzhu@live.unc.edu). Additionally Anna Truelove handles trello board management. Furthormore, a new developer must be added to obtain access to our firebase database
 
--Our team follows development best practices and should incquire with the current development team about team best practices.
+- Before contributing to the application, a new contributor must first request access from current admin Eric Zhu (ericzhu@live.unc.edu). Additionally Anna Truelove handles Trello board management. Furthermore, a new developer must be added to obtain access to our firebase database
+- Our team follows development best practices and should incquire with the current development team about team best practices.
 
 Our project website is: (http://2wheeledtraveler.web.unc.edu/)
 
