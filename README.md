@@ -3,14 +3,14 @@
 Vintage motorcyclists have come to rely on cell phones more and more while riding their motorcycles. This app eliminates the need for multiple apps by combining features like speed, weather, and gas onto a single screen that overlays your standard mapping program.
 
 
-## Getting started ***
+## Getting started
 
-- Prerequisites: what other software needs to be installed before developing or running this software (e.g. Node.js)? Give specific commands to install the software, noting any assumptions about package management tools or operating system.
-
-*need to include react, npm, etc
-- Installing: how can a user get a working development environment? Give step-by-step instructions.
-- Running locally: once everything is installed, how can a user start a local server?
-- Warranty: when (in terms of date or commit) were these instructions last tested and verified to work, by whom, and on what operating system?
+-In order to start developing we are using expo to run our application during development. Follow the steps to install on the expo guide. 
+-Our application is developed off the back of React Native and so to start development, follow the steps to install React-Native.
+-We use npm to build our application and include all of our packages that we use so during installation of React-Native and Node.js make sure to include Node Packet Manager as well.
+-After gaining access to our repository, to start development run `npm install` to install all packages neccessary to run our application.
+-When ready to run a local server, run `npm start` this should run a script to automatically start expo. This can be verified by checking the `package.json` file.
+-This start guide was written on 11/15/2019 and verified by Eric K Zhu(ekzhu703@gmail.com) on Windows 10; email me with any questions.
 
 ## Testing
 
@@ -20,7 +20,7 @@ For testing, we created unit tests and generated coverage reports using Jest.
 - To run the tests, run
 `npm test`
 
-To view the coverage report, open the `index.html` file withing the `/coverage/` directory. 
+To view the coverage report, open the `index.html` file within the `/coverage/` directory. 
 
 ## Deployment ***
 
@@ -29,17 +29,21 @@ To view the coverage report, open the `index.html` file withing the `/coverage/`
 - What are the various pieces that the fully deployed software uses? For example, with Heroku, what addons does the app use?
 - Is continuous integration or continuous deployment enabled? If so, where does it live?
 
+-Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permision from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
+-Our fully deployed application will be hosted on the application stores, aka App Store and Google Play for iOS and Android.
 
-## Technologies used ***
 
-- List which technologies were chosen.
-- Mention where in the repository the ADRs live. (Add them to the repository if they're not already there.)
+## Technologies used
+-We are using a firebase database to manage users and their data
+-Our navigation is being provided by Google Maps
+-Our application is being built off of the React Native infrastructure
 
-## Contributing ***
+## Contributing
+-Before contributing to the application, a new contributor must first request access from current admin Eric Zhu (ericzhu@live.unc.edu). Additionally Anna Truelove handles trello board management. Furthormore, a new developer must be added to obtain access to our firebase database
 
-- Does a new developer need to get access to any systems (e.g. the GitHub repository, Trello) before he or she is able to contribute?
-- Are there any style, testing, or process conventions that a new developer should know about?
-- Include a link to your project web site for more background information.
+-Our team follows development best practices and should incquire with the current development team about team best practices.
+
+Our project website is: (http://2wheeledtraveler.web.unc.edu/)
 
 ## Authors ***
 
@@ -52,6 +56,10 @@ To view the coverage report, open the `index.html` file withing the `/coverage/`
 - Styled the Login & Registration Screens
 
 [Eric Zhu](https://github.com/eric-k-zhu)
+-UI Lead
+-Styled Profile Screen
+-Developed Core Navigation aspects
+-Set up core application infrastructure
 
 [Suraj Madiraju](https://github.com/madirajusuraj)
 
