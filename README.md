@@ -6,6 +6,8 @@ Vintage motorcyclists have come to rely on cell phones more and more while ridin
 ## Getting started ***
 
 - Prerequisites: what other software needs to be installed before developing or running this software (e.g. Node.js)? Give specific commands to install the software, noting any assumptions about package management tools or operating system.
+
+*need to include react, npm, etc
 - Installing: how can a user get a working development environment? Give step-by-step instructions.
 - Running locally: once everything is installed, how can a user start a local server?
 - Warranty: when (in terms of date or commit) were these instructions last tested and verified to work, by whom, and on what operating system?
@@ -50,6 +52,7 @@ To view the coverage report, open the `index.html` file withing the `/coverage/`
 - Styled the Login & Registration Screens
 
 [Eric Zhu](https://github.com/eric-k-zhu)
+
 [Suraj Madiraju](https://github.com/madirajusuraj)
 
 ## License
