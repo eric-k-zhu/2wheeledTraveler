@@ -12,8 +12,6 @@ const SettingsNavigator = createStackNavigator({
         ContactScreen: ContactScreen,
         GasScreen: GasScreen,
       },
-      {
-        headerMode: 'none'
-      })
+      )
 
 export default createAppContainer(SettingsNavigator);
