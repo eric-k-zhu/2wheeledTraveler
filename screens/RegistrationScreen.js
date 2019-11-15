@@ -31,7 +31,6 @@ export default class RegistrationScreen extends React.Component {
           user1.user.updateProfile({displayName: name,
           photoURL: 'gs://wheeled-traveler.appspot.com/icons8-user-90.png'}).then(
             s => {
-              console.log("success");
               Alert.alert('Item saved successfully');
               this.props.navigation.navigate('ProfileScreen');
             }
@@ -39,7 +38,6 @@ export default class RegistrationScreen extends React.Component {
         }
       })
       .catch(function (error) {
-          console.log('Error fetching user data:', error);
           Alert.alert(error.message);
       });
       

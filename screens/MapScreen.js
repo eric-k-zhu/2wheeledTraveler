@@ -107,9 +107,11 @@ export default class MapScreen extends React.Component {
    render() {
     return (
       <View style= {styles.main}>
+                {/* Top Panel */}
                 <View style={{flex: 0.5, justifyContent: 'center'}}>
                     <Text style={{textAlign: 'center'}} > Speed        Distance        Time</Text>
                 </View>
+                {/* Map View */}
                 <View style={{flex: 3}}> 
                   <MapView
                       provider={ PROVIDER_GOOGLE }
@@ -123,6 +125,7 @@ export default class MapScreen extends React.Component {
                       />
                     </MapView>
                 </View>
+                {/* Bottom Panel */}
                 <View style={{flex: 0.5, justifyContent: 'center'}}>
                     <Text style={{textAlign: 'center'}}>Find a Gas Station         Send Location</Text>
                 </View>
