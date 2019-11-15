@@ -20,7 +20,7 @@ export default class RegistrationScreen extends React.Component {
 
   SignUp = (name, email, password, password2) => {
     if (!(password === password2)) {
-      return Alert.alert("Passwords do not match Client Side");
+      return Alert.alert("Passwords do not match");
     }
     app
       .auth()
@@ -37,10 +37,10 @@ export default class RegistrationScreen extends React.Component {
             }
           )
         }
-      }, reason => {
-        // rejections
-        // need to handle and specify more errors as well
-        Alert.alert("Password must be at least 6 characters.")
+      })
+      .catch(function (error) {
+          console.log('Error fetching user data:', error);
+          Alert.alert(error.message);
       });
       
   };
@@ -87,7 +87,7 @@ export default class RegistrationScreen extends React.Component {
             />
           </Item>
         </Form>
-        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.email, this.state.password, this.state.password2)}>
+        <Button full rounded success style={styles.Button} onPress={() => this.SignUp(this.state.name, this.state.email, this.state.password, this.state.password2)}>
           <Text style={styles.buttonText}>Signup</Text>
         </Button>
         <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout"><Text style={styles.link}>Back to Log In</Text></Button>
