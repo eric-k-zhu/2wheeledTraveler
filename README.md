@@ -10,7 +10,7 @@ Vintage motorcyclists have come to rely on cell phones more and more while ridin
 - Running locally: once everything is installed, how can a user start a local server?
 - Warranty: when (in terms of date or commit) were these instructions last tested and verified to work, by whom, and on what operating system?
 
-## Testing ***
+## Testing
 
 For testing, we created unit tests and generated coverage reports using Jest.
 - First,  Jest needs to be installed for Expo
@@ -41,11 +41,40 @@ To view the coverage report, open the `index.html` file withing the `/coverage/`
 
 ## Authors ***
 
-- Who have the major authors been so far? This is your chance to acknowledge your own efforts.
+[Anna Truelove](https://github.com/annatruelove)
+- Project Manager
+- Webmaster
+- Integrated Firebase with the application
+- Implemented email authentication
+- Wrote tests and produced test coverage report
+- Styled the Login & Registration Screens
 
-## License ***
+[Eric Zhu](https://github.com/eric-k-zhu)
+[Suraj Madiraju](https://github.com/madirajusuraj)
 
-- What license applies to the source code? I recommend a liberal open-source license like the MIT license or the BSD license, so that your client can have the legal right to use and extend your work later in whatever way they would like. (However, teams with an IP agreement with their client should be careful not to pick something without getting their client's approval first.)
+## License
+
+MIT License
+
+Copyright (c) 2019 Eric Zhu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Acknowledgments
 
