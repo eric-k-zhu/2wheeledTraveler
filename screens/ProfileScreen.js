@@ -1,25 +1,96 @@
 import React from 'react'
-import { Text, Button, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet,Image } from 'react-native';
+import {app} from '../config';
+import {Button} from "native-base";
+
+
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 export default class ProfileScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Profile',
+  };
+   
+  componentDidMount() {
+    const { currentUser } = app.auth()
+    this.setState({ currentUser, image: null })
+    // let ref = app.storage().ref('icons8-user-90.png')
+    // ref.getDownloadURL().then(image => {this.setState({image: image})})
+}
 
   render() {
+    let creationYear = new Date(app.auth().currentUser.metadata.creationTime).getFullYear()
+  
     return (
       <View style={styles.main}>
-        <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Logout" />
-        <Button onPress={() => this.props.navigation.navigate('MapScreen')} title="Map" />
-        <Button onPress={() => this.props.navigation.navigate('SettingsScreen')} title="Settings" />
-      </View>
-    )
-  }
+     
+       <View style={styles.topContainer}>
+         <Image source={require('../Images/icons8-user-90.png')}
+          style={{width:75, height:75, flex:1 }}>
+         </Image>
+      
+         <View style={{flex:2, textAlign: 'center'}}>
+           <Text style={styles.headingText}>{app.auth().currentUser.displayName}</Text>
+           <Text style={styles.normalText}>Member Since: {creationYear}</Text>
+         </View>
+        
+         <View style={{justiftyContent:"center", alignItems:"center", flex:1}}>
+           <Icon
+           size={25}
+           color='black' np
+           name="cog" 
+           onPress={() => this.props.navigation.navigate('SettingsScreen')}>
+           </Icon>
+         </View>
+         
+       </View>
+       
+       <View style={styles.middleContainer}>
+         <Text style={styles.headingText}>Lifetime Stats</Text>
+       </View>
+       
+       <View style={styles.bottomContainer}>
+         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')}>
+           <Text style={styles.buttonText}>Map</Text>
+           </Button>
+         <Button  style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')}>
+           <Text style={styles.link}>Log out</Text>
+           </Button>
+       </View>
+     
+     </View>
+     )
+}
 }
 
 const styles = StyleSheet.create({
+  topContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    
+  },
+  normalText: {
+    fontSize: 14,
+    color: 'black'
+  },
+  headingText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 24
+  },
+  middleContainer:{
+    flex:2
+  },
+  bottomContainer:{
+    flex:1
+  },
+  
   main: {
     flex: 1,
     padding: 30,
     flexDirection: 'column',
-    backgroundColor: '#20b353'
+    backgroundColor: '#FFFFFF'
   },
   title: {
     marginBottom: 20,
@@ -43,15 +114,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: '#56ba58',
     marginTop: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
+    marginBottom: 30
+  },
+  buttonText: {
+    color: 'white', 
+    fontSize: 20
+},
+link: {
+  alignSelf: "center",
+  backgroundColor: "transparent",
+  color: "black",
+  fontSize: 20
+}
 });

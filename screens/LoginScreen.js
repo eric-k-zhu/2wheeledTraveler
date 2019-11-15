@@ -33,7 +33,7 @@ export default class LoginScreen extends React.Component {
                 <ScrollView keyboardShouldPersistTaps='never'>
                 <Image
                     style={styles.image}
-                    source={require('../logo.png')}
+                    source={require('../Images/logo.png')}
                 />
                 <Text style={styles.title}>2 Wheeled Traveler</Text>
                 <Form>
