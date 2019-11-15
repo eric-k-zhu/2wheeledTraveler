@@ -7,7 +7,7 @@ Vintage motorcyclists have come to rely on cell phones more and more while ridin
 - In order to start developing we are using expo to run our application during development. Follow the steps to install on the expo guide. 
 - Our application is developed off the back of React Native and so to start development, follow the steps to install React-Native.
 - We use npm to build our application and include all of our packages that we use so during installation of React-Native and Node.js make sure to include Node Packet Manager as well.
-- After gaining access to our repository, to start development run `npm install` to install all packages neccessary to run our application.
+- After gaining access to our repository, to start development run `npm install` to install all packages necessary to run our application.
 - When ready to run a local server, run `npm start` this should run a script to automatically start expo. This can be verified by checking the `package.json` file.
 - This start guide was written on 11/15/2019 and verified by Eric K Zhu(ekzhu703@gmail.com) on Windows 10; email me with any questions.
 
@@ -23,9 +23,9 @@ To view the coverage report, open the `index.html` file within the `/coverage/` 
 
 ## Deployment
 
-- Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permision from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
+- Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permission from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
 - Our fully deployed application will be hosted on the application stores, aka App Store and Google Play for iOS and Android.
-- At this point in time, continuos deployment is not enabled.
+- At this point in time, continuous deployment is not enabled.
 
 ## Technologies used
 
@@ -36,7 +36,7 @@ To view the coverage report, open the `index.html` file within the `/coverage/` 
 ## Contributing
 
 - Before contributing to the application, a new contributor must first request access from current admin Eric Zhu (ericzhu@live.unc.edu). Additionally Anna Truelove handles Trello board management. Furthermore, a new developer must be added to obtain access to our firebase database
-- Our team follows development best practices and should incquire with the current development team about team best practices.
+- Our team follows development best practices and should inquire with the current development team about team best practices.
 
 Our project website is: (http://2wheeledtraveler.web.unc.edu/)
 
@@ -51,10 +51,10 @@ Our project website is: (http://2wheeledtraveler.web.unc.edu/)
 - Styled the Login & Registration Screens
 
 [Eric Zhu](https://github.com/eric-k-zhu)
--UI Lead
--Styled Profile Screen
--Developed Core Navigation aspects
--Set up core application infrastructure
+- UI Lead
+- Styled Profile Screen
+- Developed Core Navigation aspects
+- Set up core application infrastructure
 
 [Suraj Madiraju](https://github.com/madirajusuraj)
 
