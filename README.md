@@ -21,7 +21,7 @@ For testing, we created unit tests and generated coverage reports using Jest.
 
 To view the coverage report, open the `index.html` file within the `/coverage/` directory. 
 
-## Deployment ***
+## Deployment
 
 - Our production code is hosted on GitHub in the 2WheeledTraveler repository master branch. A new developer can view the code as it is public but must first get permision from administrator Eric Zhu (ekzhu703@gmail.com) to contribute changes.
 - Our fully deployed application will be hosted on the application stores, aka App Store and Google Play for iOS and Android.
