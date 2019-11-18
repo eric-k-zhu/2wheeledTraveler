@@ -30,7 +30,7 @@ export default class ProfileScreen extends React.Component {
           style={{width:75, height:75, flex:1 }}>
          </Image>
       
-         <View style={{flex:2, textAlign: 'center'}}>
+         <View style={{flex:2, textAlign: 'center', paddingLeft: 15, paddingTop: 20}}>
            <Text style={styles.headingText}>{app.auth().currentUser.displayName}</Text>
            <Text style={styles.normalText}>Member Since: {creationYear}</Text>
          </View>
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
     flexDirection: 'row',
+    paddingTop: 30
     
   },
   normalText: {

@@ -53,7 +53,7 @@ export default class RegistrationScreen extends React.Component {
         <Text style={styles.title}>Register New User</Text>
         <Form>
         <Item floatingLabel>
-            <Label>Name</Label>
+            <Label style={styles.Label}>Name</Label>
             <Input
               autoCapitalize="none"
               autoCorrect={false}
