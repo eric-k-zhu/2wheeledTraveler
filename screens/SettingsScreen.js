@@ -9,10 +9,11 @@ export default class SettingsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked1: true,
+            checked1: false,
             checked2: false,
             checked3: false,
-            checked4: false
+            checked4: false,
+            current: 0
         };
     }
 
@@ -24,22 +25,36 @@ export default class SettingsScreen extends React.Component {
                 <CheckBox
                     title='Current Speed'
                     checked={this.state.checked1}
-                    onPress={() => this.checkSpeed(this.state.checked1)}
+                    onPress={() => {
+                        this.state.current = 1
+                        this.checkSpeed()
+                    }
+                    }
                 />
                 <CheckBox
                     title='Maximum Speed'
                     checked={this.state.checked2}
-                    onPress={() => this.setState({ checked2: !this.state.checked2 })}
+                    onPress={() => {
+                        this.state.current = 2
+                        this.checkSpeed()
+                    }
+                    }
                 />
                 <CheckBox
                     title='Average Speed'
                     checked={this.state.checked3}
-                    onPress={() => this.setState({ checked3: !this.state.checked3 })}
+                    onPress={() => {
+                        this.state.current = 3
+                        this.checkSpeed()
+                    }}
                 />
                 <CheckBox
                     title='Distance Traveled'
                     checked={this.state.checked4}
-                    onPress={() => this.setState({ checked4: !this.state.checked4 })}
+                    onPress={() => {
+                        this.state.current = 4
+                        this.checkSpeed()
+                    }}
                 />
                 <Text style={styles.Text}>Contacts</Text>
 
@@ -51,12 +66,31 @@ export default class SettingsScreen extends React.Component {
     }
 
     // check to see if 3 are already selected
-    checkSpeed(checked) {
+    checkSpeed() {
         // can always uncheck
-        if (checked) {
-            console.log("checked was true")
-            this.setState({ checked: false }) // is not actually setting the state to false
-            return
+        if (this.state.current == 1) {
+            if (this.state.checked1) {
+                this.setState({ checked1: false })
+                return
+            }
+        }
+        if (this.state.current == 2) {
+            if (this.state.checked2) {
+                this.setState({ checked2: false })
+                return
+            }
+        }
+        if (this.state.current == 3) {
+            if (this.state.checked3) {
+                this.setState({ checked3: false })
+                return
+            }
+        }
+        if (this.state.current == 4) {
+            if (this.state.checked4) {
+                this.setState({ checked4: false })
+                return
+            }
         }
 
         // can only check if 3 or less are checked
@@ -74,11 +108,30 @@ export default class SettingsScreen extends React.Component {
             count++
         }
 
+        // console.log(count)
+        // console.log(this.state.checked1)
+        // console.log(this.state.current)
+
         if (count == 3) {
             return
-        } else {
-            this.setState({ checked: true })
         }
+        if (this.state.current == 1) {
+            this.setState({ checked1: true })
+            return
+        }
+        if (this.state.current == 2) {
+            this.setState({ checked2: true })
+            return
+        }
+        if (this.state.current == 3) {
+            this.setState({ checked3: true })
+            return
+        }
+        if (this.state.current == 4) {
+            this.setState({ checked4: true })
+            return
+        }
+
     }
 }
 
