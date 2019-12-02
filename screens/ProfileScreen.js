@@ -51,7 +51,7 @@ export default class ProfileScreen extends React.Component {
        </View>
        
        <View style={styles.bottomContainer}>
-         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')}>
+         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('TesterScreen')}>
            <Text style={styles.buttonText}>Map</Text>
            </Button>
          <Button  style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')}>

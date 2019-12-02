@@ -5,6 +5,7 @@ import RegistrationScreen from './screens/RegistrationScreen';
 import MapScreen from './screens/MapScreen';
 import LoginScreen from './screens/LoginScreen';
 import SettingsNavigator from './SettingsNavigator';
+import TesterScreen from './screens/TesterScreen';
 
 
 const AppNavigator = createStackNavigator({
@@ -12,7 +13,8 @@ const AppNavigator = createStackNavigator({
         ProfileScreen: ProfileScreen,
         RegistrationScreen: RegistrationScreen,
         MapScreen: MapScreen,
-        SettingsScreen: SettingsNavigator
+        SettingsScreen: SettingsNavigator,
+        TesterScreen: TesterScreen
       }, 
       {
         headerMode: 'none'

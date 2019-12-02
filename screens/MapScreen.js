@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import openMap from 'react-native-open-maps';
 
 
 export default class MapScreen extends React.Component {
     static navigationOptions = {
         title: 'Map',
     }; 
+    state = {
+        address: ''
+     }
+     handleAddress = (text) => {
+        this.setState({ address: text })
+     }
 
     render() {
         return (
@@ -15,8 +22,14 @@ export default class MapScreen extends React.Component {
                     <Text style={{textAlign: 'center'}} > Speed        Distance        Time</Text>
                 </View>
                 <View style={{flex: 3}}> 
-                    <MapComponent />
+                    <MapComponent/>
                 </View>
+                <TextInput style = {styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Address"
+                    placeholderTextColor = "#9a73ef"
+                    autoCapitalize = "none"
+                    onChangeText = {this.handleAddress}/>
                 <View style={{flex: 0.5, justifyContent: 'center'}}>
                     <Text style={{textAlign: 'center'}}>Find a Gas Station         Send Location</Text>
                 </View>
@@ -80,5 +93,11 @@ const styles = StyleSheet.create({
       marginTop: 10,
       alignSelf: 'stretch',
       justifyContent: 'center'
-    }
+    },
+    input: {
+        margin: 15,
+        height: 40,
+        borderColor: '#7a42f4',
+        borderWidth: 1
+     }
   });

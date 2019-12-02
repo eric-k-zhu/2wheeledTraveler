@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Alert, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Image, Alert, ScrollView} from 'react-native';
 import { Item, Form, Input, Button, Label } from "native-base";
 import { app } from '../config';
 
