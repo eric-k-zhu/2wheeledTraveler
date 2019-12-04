@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { API_KEY } from '../config';
+
 
 
 
@@ -48,7 +50,7 @@ export default class MapScreen extends React.Component {
                         }
 
                         query={{
-                            key: 'AIzaSyD1OsyqDzz49N5qkkUqqdIdS4w8Hp2-PnY',
+                            key:  API_KEY,
                             language: 'en'
                         }}
 
