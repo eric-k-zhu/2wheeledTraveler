@@ -8,9 +8,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 export default class ProfileScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Profile',
-  };
    
   componentDidMount() {
     const { currentUser } = app.auth()
@@ -30,14 +27,14 @@ export default class ProfileScreen extends React.Component {
           style={{width:75, height:75, flex:1 }}>
          </Image>
       
-         <View style={{flex:2, textAlign: 'center'}}>
+         <View style={{flex:2, textAlign: 'center', paddingLeft:10, paddingTop:10 }}>
            <Text style={styles.headingText}>{app.auth().currentUser.displayName}</Text>
            <Text style={styles.normalText}>Member Since: {creationYear}</Text>
          </View>
         
-         <View style={{justiftyContent:"center", alignItems:"center", flex:1}}>
+         <View style={{justiftyContent:"center", alignItems:"center", flex:1, marginLeft: 40}}>
            <Icon
-           size={25}
+           size={30}
            color='black' np
            name="cog" 
            onPress={() => this.props.navigation.navigate('SettingsScreen')}>
@@ -68,6 +65,7 @@ const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
     flexDirection: 'row',
+    marginTop: 40
     
   },
   normalText: {
