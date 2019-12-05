@@ -30,9 +30,6 @@ export default class MapScreen extends Component {
     render() {
         return (
             <View style={styles.main}>
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }} > Speed        Distance        Time</Text>
-                </View>
                 <View style={styles.main}>
                     <Text style={styles.headingText}>Select Your Destination</Text>
                     <GooglePlacesAutocomplete
@@ -62,10 +59,6 @@ export default class MapScreen extends Component {
                         <Text style={styles.buttonText}>Start Navigation</Text>
                     </Button>
                     <Text>Switch back to our app once navigation has started!</Text>
-                </View>
-
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }}>Find a Gas Station         Send Location</Text>
                 </View>
             </View>
         )
