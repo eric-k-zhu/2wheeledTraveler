@@ -11,3 +11,6 @@ web-build/
 web-report/
 config.js
 coverage/**/*
+.idea/*
+*.keystore
+android/***
