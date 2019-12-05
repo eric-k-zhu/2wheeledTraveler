@@ -5,10 +5,7 @@ import openMap from 'react-native-open-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { API_KEY } from '../config';
 
-
-
-
-export default class MapScreen extends React.Component {
+export default class MapScreen extends Component {
     static navigationOptions = {
         title: 'Map',
     };
@@ -27,14 +24,12 @@ export default class MapScreen extends React.Component {
 
     navigate() {
         openMap({ provider: "google", end: this.state.address, navigate_mode: "navigate" });
+        this.props.navigation.navigate('RideScreen')
     }
 
     render() {
         return (
             <View style={styles.main}>
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }} > Speed        Distance        Time</Text>
-                </View>
                 <View style={styles.main}>
                     <Text style={styles.headingText}>Select Your Destination</Text>
                     <GooglePlacesAutocomplete
@@ -60,15 +55,10 @@ export default class MapScreen extends React.Component {
                 </View>
                 <View style={styles.main}>
                     <Button full rounded success style={styles.button}
-                        color={'#bdc3c7'}
                         onPress={() => this.navigate()}>
                         <Text style={styles.buttonText}>Start Navigation</Text>
                     </Button>
                     <Text>Switch back to our app once navigation has started!</Text>
-                </View>
-
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }}>Find a Gas Station         Send Location</Text>
                 </View>
             </View>
         )
