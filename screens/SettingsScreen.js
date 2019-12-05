@@ -1,8 +1,16 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native';
-import { Button } from "native-base";
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Button, Item, Label, Form, Input } from "native-base";
 import { CheckBox } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Modal from 'react-native-modal';
+import { app } from '../config';
 
+
+const{ width , height } = Dimensions.get('window')
+const containerWidth = width *.9
+const modalHeight = height *.4
+const db = app.database()
 
 
 export default class SettingsScreen extends React.Component {
@@ -56,8 +64,9 @@ export default class SettingsScreen extends React.Component {
                         this.checkSpeed()
                     }}
                 />
-                <Text style={styles.Text}>Contacts</Text>
 
+                <ContactsView/>
+                
                 <Button style={styles.link} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
                     <Text style={styles.link}>Back to Profile</Text>
                 </Button>
@@ -135,6 +144,100 @@ export default class SettingsScreen extends React.Component {
     }
 }
 
+class ContactsView extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            modalVisible:false,
+            contactName: "",
+            contactPhoneNumber: "",
+        }
+    }
+       
+    addContact(contactName, contactPhoneNumber){
+        
+        
+        db.ref(app.auth().currentUser.uid).push({
+            contactName: contactName,
+            contactPhoneNumber: contactPhoneNumber
+        })
+
+        this.setModalVisible(false)
+
+    }
+    
+    setModalVisible(visable){
+        this.setState({modalVisible: visable})
+    }
+
+    render(){
+        return(
+            <View style={{marginTop: 10}}>
+            <View style={contactStyles.topContainer}>
+                <Text style={styles.Text}>Contacts</Text>
+                <Icon name='user-plus' size={25} color='black' style={{marginLeft:200}} onPress={() => {this.setModalVisible(true)}}></Icon>
+            </View>
+
+            <Modal  animationType="slide"
+            hasBackdrop={true}
+            onBackButtonPress={() => {this.setModalVisible(false)}}
+            onBackdropPress={() => {this.setModalVisible(false)}}
+            transparent={true}
+            isVisible={this.state.modalVisible}
+            avoidKeyboard={true}
+            >
+                <View style={contactStyles.modalStyle}>
+
+                    <View style={{justifyContent:'center', flexDirection: 'row', marginTop: 30}} >
+                        <Text style={styles.Text}>Add Contact</Text>
+                    </View>
+
+                    <Form>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Contact Name</Label>
+                        <Input
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={name => this.setState({ contactName: name })}
+                        />
+                    </Item>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Phone Number</Label>
+                        <Input
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={number => this.setState({ contactPhoneNumber: number})}
+                        />
+                    </Item>
+                    </Form>
+
+                    <View style={{justifyContent:'center', flexDirection: 'row'}} >
+                        <Button full rounded style={{width: 200, justifyContent:'center', marginTop: 50, backgroundColor: '#56ba58'}} 
+                        onPress={() => {this.addContact(this.state.contactName, this.state.contactPhoneNumber)}}>
+                            <Text style={{color: 'white'}}>Add Contact</Text>
+                        </Button>
+                    </View>
+
+                </View>
+            </Modal>
+            </View>
+        )
+    }
+}
+
+const contactStyles = StyleSheet.create({
+    topContainer: {
+        flexDirection: 'row',
+      },
+    modalStyle: {
+        height:  modalHeight,
+        width: containerWidth,
+        borderRadius: 5,
+        backgroundColor: 'rgb(245,245,245)'
+    }
+})
+
 const styles = StyleSheet.create({
     main: {
         flex: 1,
@@ -167,11 +270,10 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     Label: {
-        fontSize: 20
+        fontSize: 15
     },
     Text: {
         fontSize: 20,
         paddingBottom: 10
     }
-
 });

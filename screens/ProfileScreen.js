@@ -2,8 +2,6 @@ import React from 'react'
 import { Text, View, StyleSheet,Image } from 'react-native';
 import {app} from '../config';
 import {Button} from "native-base";
-
-
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
