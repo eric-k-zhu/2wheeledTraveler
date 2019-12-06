@@ -6,57 +6,57 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 export default class ProfileScreen extends React.Component {
-   
+
   componentDidMount() {
     const { currentUser } = app.auth()
     this.setState({ currentUser, image: null })
     // let ref = app.storage().ref('icons8-user-90.png')
     // ref.getDownloadURL().then(image => {this.setState({image: image})})
-}
+  }
 
   render() {
     let creationYear = new Date(app.auth().currentUser.metadata.creationTime).getFullYear()
-  
+
     return (
       <View style={styles.main}>
-     
-       <View style={styles.topContainer}>
-         <Image source={require('../Images/icons8-user-90.png')}
-          style={{width:75, height:75, flex:1 }}>
-         </Image>
-      
-         <View style={{flex:2, textAlign: 'center', paddingLeft:10, paddingTop:10 }}>
-           <Text style={styles.headingText}>{app.auth().currentUser.displayName}</Text>
-           <Text style={styles.normalText}>Member Since: {creationYear}</Text>
-         </View>
-        
-         <View style={{justiftyContent:"center", alignItems:"center", flex:1, marginLeft: 40}}>
-           <Icon
-           size={30}
-           color='black' np
-           name="cog" 
-           onPress={() => this.props.navigation.navigate('SettingsScreen')}>
-           </Icon>
-         </View>
-         
-       </View>
-       
-       <View style={styles.middleContainer}>
-         <Text style={styles.headingText}>Lifetime Stats</Text>
-       </View>
-       
-       <View style={styles.bottomContainer}>
-         <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')}>
-           <Text style={styles.buttonText}>Start Ride</Text>
-           </Button>
-         <Button  style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')}>
-           <Text style={styles.link}>Log out</Text>
-           </Button>
-       </View>
-     
-     </View>
-     )
-}
+
+        <View style={styles.topContainer}>
+          <Image source={require('../Images/icons8-user-90.png')}
+            style={{ width: 75, height: 75, flex: 1 }}>
+          </Image>
+
+          <View style={{ flex: 2, textAlign: 'center', paddingLeft: 10, paddingTop: 10 }}>
+            <Text style={styles.headingText}>{app.auth().currentUser.displayName}</Text>
+            <Text style={styles.normalText}>Member Since: {creationYear}</Text>
+          </View>
+
+          <View style={{ justiftyContent: "center", alignItems: "center", flex: 1, marginLeft: 40 }}>
+            <Icon
+              size={30}
+              color='black' np
+              name="cog"
+              onPress={() => this.props.navigation.navigate('SettingsScreen')}>
+            </Icon>
+          </View>
+
+        </View>
+
+        <View style={styles.middleContainer}>
+          <Text style={styles.headingText}>Lifetime Stats</Text>
+        </View>
+
+        <View style={styles.bottomContainer}>
+          <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('MapScreen')}>
+            <Text style={styles.buttonText}>Start Ride</Text>
+          </Button>
+          <Button style={styles.link} onPress={() => this.props.navigation.navigate('LoginScreen')}>
+            <Text style={styles.link}>Log out</Text>
+          </Button>
+        </View>
+
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginTop: 40
-    
+
   },
   normalText: {
     fontSize: 14,
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24
   },
-  middleContainer:{
-    flex:2
+  middleContainer: {
+    flex: 2
   },
-  bottomContainer:{
-    flex:1
+  bottomContainer: {
+    flex: 1
   },
-  
+
   main: {
     flex: 1,
     padding: 30,
@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   buttonText: {
-    color: 'white', 
+    color: 'white',
     fontSize: 20
-},
-link: {
-  alignSelf: "center",
-  backgroundColor: "transparent",
-  color: "black",
-  fontSize: 20
-}
+  },
+  link: {
+    alignSelf: "center",
+    backgroundColor: "transparent",
+    color: "black",
+    fontSize: 20
+  }
 });
