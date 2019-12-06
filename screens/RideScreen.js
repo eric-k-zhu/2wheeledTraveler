@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { API_KEY } from '../config';
@@ -15,7 +15,7 @@ export default class MapScreen extends Component {
         };
     }
 
-    getCurrentLocation() { 
+    getCurrentLocation() {
         // Get current location and pass it to findGas
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -42,16 +42,34 @@ export default class MapScreen extends Component {
                     lat: responseJson.results[0].geometry.location['lat'],
                     lng: responseJson.results[0].geometry.location['lng']
                 }, function () {
-                    this.navGas();
+                    this.popUp();
                 });
             });
 
     }
 
-    navGas() {
+    popUp() {
 
-        // confirmation pop up: adding xx to your route
+        // confirmation pop up: adding gas to your route
+        Alert.alert(
+            'Rerouting to Gas Station',
+            'Please Confirm Below',
+            [
+                {
+                    text: 'OK', onPress: () => this.navGas()
+                },
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed')
+                }
 
+            ],
+            { cancelable: true },
+        );
+
+    }
+
+    navGas(){
         // navigate to closest gas station
         var address = this.state.lat + "," + this.state.lng;
         openMap({ provider: "google", end: address, navigate_mode: "navigate" });
