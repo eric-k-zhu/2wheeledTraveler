@@ -7,15 +7,13 @@ export default class MapScreen extends Component {
     render() {
         return (
             <View style={styles.main}>
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }} > Speed        Distance        Time</Text>
-                </View>
 
-                <View style={{ flex: 0.5, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center' }}>Find a Gas Station         Send Location</Text>
-                </View>
+                <View style={styles.main}>
+                    <Button full success style={styles.button2}>
+                        <Text style={styles.buttonText}>Find Gas Station</Text>
+                    </Button>
+                    <Text style={{ textAlign: 'center' }}>Send Location</Text>
 
-                <View>
                     <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
                         <Text style={styles.buttonText}>End Ride</Text>
                     </Button>
@@ -29,32 +27,26 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: 'white'
-    },
-    title: {
-        marginBottom: 20,
-        fontSize: 25,
-        textAlign: 'center'
-    },
-    itemInput: {
-        height: 50,
-        padding: 4,
-        marginRight: 5,
-        fontSize: 23,
-        borderWidth: 1,
-        borderColor: 'white',
-        borderRadius: 8,
         backgroundColor: 'white',
-        marginBottom: 15
+        marginTop: 30
     },
     buttonText: {
         color: 'white',
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'center'
     },
     button: {
         backgroundColor: '#56ba58',
         marginTop: 10,
         marginBottom: 30
+    },
+    button2: {
+        backgroundColor: '#82CAFF',
+        marginTop: 10,
+        marginBottom: 30,
+        width: 300,
+        height: 100,
+        alignSelf: 'center'
     },
     headingText: {
         color: 'black',

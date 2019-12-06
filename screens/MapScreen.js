@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { API_KEY } from '../config';
 
 export default class MapScreen extends Component {
+    static navigationOptions = {
+        title: 'Map',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -23,12 +27,13 @@ export default class MapScreen extends Component {
         this.props.navigation.navigate('RideScreen')
     }
 
-
     render() {
         return (
             <View style={styles.main}>
-                    <View style={styles.search}>
-                        <Text style={styles.headingText}>Select Your Destination</Text>
+                <View style={styles.main}>
+                    <Text style={styles.headingText}>Select Your Destination</Text>
+                    <ScrollView keyboardShouldPersistTaps='handled'>
+
                         <GooglePlacesAutocomplete
                             placeholder='Search'
                             minLength={2} // minimum length of text to search
@@ -49,14 +54,18 @@ export default class MapScreen extends Component {
                             nearbyPlacesAPI='GooglePlacesSearch'
                             debounce={300}
                         />
-                    </View>
-                    <View style={styles.main}>
-                        <Button full rounded success style={styles.button}
-                            onPress={() => this.navigate()}>
-                            <Text style={styles.buttonText}>Start Navigation</Text>
-                        </Button>
-                        <Text style={styles.text}>Switch back to our app once navigation has started!</Text>
-                    </View>
+                    </ScrollView>
+                </View>
+                <View style={styles.bottom}>
+                    <Button full rounded success style={styles.button}
+                        onPress={() => this.navigate()}>
+                        <Text style={styles.buttonText}>Start Navigation</Text>
+                    </Button>
+                    <Text style={styles.text}>Switch back to our app once navigation has started!</Text>
+                    <Button style={styles.link} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
+                        <Text style={styles.link}>Back to Profile</Text>
+                    </Button>
+                </View>
             </View>
         )
     }
@@ -70,6 +79,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: 'white',
         marginTop: 30
+    },
+    bottom: {
+        marginBottom: 30, 
+        flex: 1
     },
     title: {
         marginBottom: 20,
@@ -94,20 +107,29 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#56ba58',
         marginTop: 10,
-        marginBottom: 30
+        marginBottom: 30,
+        marginLeft: 20,
+        marginRight: 20
     },
     headingText: {
         color: 'black',
         fontWeight: 'bold',
-        fontSize: 24, 
-        textAlign: 'center', 
+        fontSize: 24,
+        textAlign: 'center',
         marginBottom: 30
     },
     search: {
         paddingTop: 30,
         paddingBottom: 300
-    }, 
+    },
     text: {
         textAlign: 'center'
+    },
+    link: {
+      alignSelf: "center",
+      backgroundColor: "transparent",
+      color: "black",
+      fontSize: 20, 
+      marginTop: 12
     }
 });
