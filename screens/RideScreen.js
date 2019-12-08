@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, Dimensions } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { API_KEY } from '../config';
@@ -7,6 +7,9 @@ import { app } from '../config';
 import email from 'react-native-email'
 import GLOBAL from './global.js'
 import moment from 'moment';
+
+const{ width , height } = Dimensions.get('window')
+const paddingHeight = height *.02
 
 export default class RideScreen extends Component {
 
@@ -242,13 +245,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white',
-        marginTop: 30
+        marginTop: (paddingHeight + 10)
     },
     bottom: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white',
-        marginTop: 20
+        marginTop: paddingHeight
     },
     buttonText: {
         color: 'white',
@@ -257,26 +260,23 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'red',
-        marginTop: 10,
-        marginBottom: 30,
+        marginTop: paddingHeight,
         width: 300,
         height: 75,
         alignSelf: 'center'
     },
     button2: {
         backgroundColor: '#56ba58',
-        marginTop: 10,
-        marginBottom: 30,
-        width: 300,
-        height: 100,
+        marginTop: (paddingHeight + 10),
+        width: 250,
+        height: 75,
         alignSelf: 'center'
     },
     button3: {
         backgroundColor: 'white',
         borderColor: '#56ba58',
         borderWidth: 3,
-        marginTop: 20,
-        marginBottom: 30,
+        marginBottom: paddingHeight,
         width: 300,
         height: 75,
         alignSelf: 'center',
