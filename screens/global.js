@@ -8,5 +8,6 @@ module.exports = {
     check3: false,
     check4: false,
     check5: false,
-    curTime: time
+    curTime: time, 
+    curSpeed: 0
 };
