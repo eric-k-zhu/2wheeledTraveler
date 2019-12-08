@@ -48,6 +48,10 @@ export default class RideScreen extends Component {
 
     getSpeed() {
         GLOBAL.curSpeed = this.state.current.coords["speed"];
+        
+        if(GLOBAL.curSpeed > GLOBAL.maxSpeed){
+            GLOBAL.maxSpeed = GLOBAL.curSpeed
+        }
     }
 
     getCurrentLocation() {
@@ -228,7 +232,7 @@ function MaxSpeed() {
     return (
         <View>
             <Text style={styles.text2}>Max Speed:</Text>
-            <Button full success style={styles.button3}><Text style={styles.text}>MaxSpeed</Text></Button>
+            <Button full success style={styles.button3}><Text style={styles.text}>{GLOBAL.maxSpeed}</Text></Button>
         </View>
     );
 }
