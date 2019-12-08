@@ -1,9 +1,18 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native';
-import { Button } from "native-base";
+import { Text, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { Button, Item, Label, Form, Input } from "native-base";
 import { CheckBox } from 'react-native-elements';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Modal from 'react-native-modal';
+import { app } from '../config';
 import GLOBAL from './global.js'
 
+
+const{ width , height } = Dimensions.get('window')
+const containerWidth = width *.9
+const modalHeight = height *.4
+const db = app.database()
 
 
 export default class SettingsScreen extends React.Component {
@@ -68,8 +77,8 @@ export default class SettingsScreen extends React.Component {
                         this.checkSpeed()
                     }}
                 />
-                <Text style={styles.Text}>Contacts</Text>
-
+                <ContactsView/>
+                
                 <Button style={styles.link} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
                     <Text style={styles.link}>Back to Profile</Text>
                 </Button>
@@ -169,7 +178,151 @@ export default class SettingsScreen extends React.Component {
     }
 }
 
+class ItemComponent extends React.Component {
+ 
+    static propTypes = {
+        contacts: PropTypes.array.isRequired
+    };
+   
+    render() {
+      return (
+        <View style={styles.itemsList}>
+          {this.props.contacts.map((item, index) => {
+              return (
+                  <View key={index}>
+                      <Text style={styles.itemtext}>{item.contactName}</Text>
+                  </View>
+              )
+          })}
+        </View>
+      );
+    }
+  }
+
+class ContactsView extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            modalVisible:false,
+            contactName: "",
+            contactEmail: "",
+            contacts:[]
+        }
+    }
+       
+    addContact(contactName, contactEmail){
+        db.ref(app.auth().currentUser.uid).push({
+            contactName: contactName,
+            contactEmail: contactEmail
+        })
+        this.setModalVisible(false)
+    }
+    
+    setModalVisible(visable){
+        this.setState({modalVisible: visable})
+    }
+    
+    componentWillUnmount() {
+       this._isMounted = false;
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+        db.ref(app.auth().currentUser.uid).on('value', (snapshot) => {
+            if (this._isMounted && (snapshot.val() != null)) {
+                let data = snapshot.val();
+                let contacts = Object.values(data);
+                this.setState({contacts:contacts});
+              }
+         });
+    }
+
+    render(){
+        return(
+            <View style={{marginTop: 10}}>
+            <View style={contactStyles.topContainer}>
+                <Text style={styles.Text}>Contacts</Text>
+                <Icon name='user-plus' size={25} color='black' style={{marginLeft:200}} onPress={() => {this.setModalVisible(true)}}></Icon>
+            </View>
+            <ScrollView style={{maxHeight:250}}>
+                {
+                    this.state.contacts.length > 0
+                    ? <ItemComponent contacts={this.state.contacts} />
+                    : null
+                }
+            </ScrollView>
+
+            <Modal  animationType="slide"
+            hasBackdrop={true}
+            onBackButtonPress={() => {this.setModalVisible(false)}}
+            onBackdropPress={() => {this.setModalVisible(false)}}
+            transparent={true}
+            isVisible={this.state.modalVisible}
+            avoidKeyboard={true}
+            >
+                <View style={contactStyles.modalStyle}>
+
+                    <View style={{justifyContent:'center', flexDirection: 'row', marginTop: 30}} >
+                        <Text style={styles.Text}>Add Contact</Text>
+                    </View>
+
+                    <Form>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Contact Name</Label>
+                        <Input
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={name => this.setState({ contactName: name })}
+                        />
+                    </Item>
+                    <Item floatingLabel>
+                        <Label style={styles.Label}>Email</Label>
+                        <Input
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={email => this.setState({ contactEmail: email})}
+                        />
+                    </Item>
+                    </Form>
+
+                    <View style={{justifyContent:'center', flexDirection: 'row'}} >
+                        <Button full rounded style={{width: 200, justifyContent:'center', marginTop: 50, backgroundColor: '#56ba58'}} 
+                        onPress={() => {this.addContact(this.state.contactName, this.state.contactEmail)}}>
+                            <Text style={{color: 'white'}}>Add Contact</Text>
+                        </Button>
+                    </View>
+
+                </View>
+            </Modal>
+            </View>
+        )
+    }
+}
+
+const contactStyles = StyleSheet.create({
+    topContainer: {
+        flexDirection: 'row',
+      },
+    modalStyle: {
+        height:  modalHeight,
+        width: containerWidth,
+        borderRadius: 5,
+        backgroundColor: 'rgb(245,245,245)'
+    }
+})
+
 const styles = StyleSheet.create({
+    itemsList: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+    },
+    itemtext: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
     main: {
         flex: 1,
         padding: 30,
@@ -201,11 +354,10 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     Label: {
-        fontSize: 20
+        fontSize: 15
     },
     Text: {
         fontSize: 20,
         paddingBottom: 10
     }
-
 });
