@@ -5,6 +5,7 @@ import openMap from 'react-native-open-maps';
 import { API_KEY } from '../config';
 import { app } from '../config';
 import email from 'react-native-email'
+import GLOBAL from './global.js'
 
 export default class RideScreen extends Component {
 
@@ -102,15 +103,11 @@ export default class RideScreen extends Component {
         }).catch(console.error)
     }
 
-
     render() {
         return (
             <View style={styles.main}>
                 <View>
-                    {/* {this.props.checked1}       */}
-                    <Button full success style={styles.button2} onPress={() => console.log(this.props.checked1)}>
-                        <Text style={styles.buttonText}>check state</Text>
-                    </Button>      
+                    <SpeedSettings/>
                 </View>
 
                 <View style={styles.main}>
@@ -131,12 +128,51 @@ export default class RideScreen extends Component {
     }
 }
 
-class CurrentSpeed extends Component {
+function SpeedSettings(){
+    var arr =[];
 
+    if (GLOBAL.check1){
+        arr.push(<CurrentSpeed key='1'/>)
+    }
+    if (GLOBAL.check2){
+        arr.push(<CurrentTime key='2'/>)
+    }
+    if (GLOBAL.check3){
+        arr.push(<AvgSpeed key='3'/>)
+    }
+    if (GLOBAL.check4){
+        arr.push(<Distance key='4'/>)
+    }
+    if (GLOBAL.check5){
+        arr.push(<MaxSpeed key='5'/>)
+    }
 
-
+    return(
+        <View>{arr}</View>
+    );
 }
 
+// SPEED SETTINGS COMPONENTS
+
+function CurrentSpeed(){
+    return <Text style={styles.text}>CurrentSpeed</Text>
+}
+
+function CurrentTime(){
+    return <Text style={styles.text}>CurrentTime</Text>
+}
+
+function AvgSpeed(){
+    return <Text style={styles.text}>AvgSpeed</Text>
+}
+
+function Distance(){
+    return <Text style={styles.text}>Distance</Text>
+}
+
+function MaxSpeed(){
+    return <Text style={styles.text}>MaxSpeed</Text>
+}
 
 const styles = StyleSheet.create({
     main: {
@@ -168,5 +204,9 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: 'bold',
         fontSize: 24
+    }, 
+    text: {
+        marginTop: 30,
+        textAlign: 'center'
     }
 });
