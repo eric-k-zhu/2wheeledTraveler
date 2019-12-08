@@ -170,23 +170,23 @@ function SpeedSettings() {
 // SPEED SETTINGS COMPONENTS
 
 function CurrentSpeed() {
-    return <Text style={styles.text}>CurrentSpeed</Text>
+    return <Button full success style={styles.button3}><Text style={styles.text}>CurrentSpeed</Text></Button>
 }
 
 function CurrentTime() {
-    return <Text style={styles.text}>{GLOBAL.curTime}</Text>
+    return <Button full success style={styles.button3}><Text style={styles.text}>{GLOBAL.curTime}</Text></Button>
 }
 
 function AvgSpeed() {
-    return <Text style={styles.text}>AvgSpeed</Text>
+    return <Button  full success style={styles.button3}><Text style={styles.text}>AvgSpeed</Text></Button>
 }
 
 function Distance() {
-    return <Text style={styles.text}>Distance</Text>
+    return <Button full success style={styles.button3}><Text style={styles.text}>Distance</Text></Button>
 }
 
 function MaxSpeed() {
-    return <Text style={styles.text}>MaxSpeed</Text>
+    return <Button full success style={styles.button3}><Text style={styles.text}>MaxSpeed</Text></Button>
 }
 
 const styles = StyleSheet.create({
@@ -198,30 +198,45 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 25,
         textAlign: 'center'
     },
     button: {
         backgroundColor: '#56ba58',
         marginTop: 10,
         marginBottom: 30,
-        paddingRight: 10
+        width: 300, 
+        height: 75,
+        alignSelf: 'center'
     },
     button2: {
-        backgroundColor: '#9fe3a0',
+        backgroundColor: '#91e691',
         marginTop: 10,
         marginBottom: 30,
         width: 300,
         height: 100,
         alignSelf: 'center'
     },
+    button3: {
+        backgroundColor: 'white',
+        borderColor: '#91e691',
+        borderWidth: 3,
+        marginTop: 20,
+        marginBottom: 30,
+        width: 300,
+        height: 75,
+        alignSelf: 'center', 
+        textAlign: 'center',
+        marginTop: 20
+    },
     headingText: {
         color: 'black',
         fontWeight: 'bold',
         fontSize: 24
-    },
+    }, 
     text: {
-        marginTop: 30,
+        color: 'black',
+        fontSize: 40,
         textAlign: 'center'
     }
 });
