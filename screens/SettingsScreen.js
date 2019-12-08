@@ -5,6 +5,7 @@ import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Modal from 'react-native-modal';
 import { app } from '../config';
+import GLOBAL from './global.js'
 
 
 const{ width , height } = Dimensions.get('window')
@@ -14,13 +15,15 @@ const db = app.database()
 
 
 export default class SettingsScreen extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            checked1: false,
-            checked2: false,
-            checked3: false,
-            checked4: false,
+            checked1: GLOBAL.check1,
+            checked2: GLOBAL.check2,
+            checked3: GLOBAL.check3,
+            checked4: GLOBAL.check4,
+            checked5: GLOBAL.check5,
             current: 0
         };
     }
@@ -65,6 +68,17 @@ export default class SettingsScreen extends React.Component {
                     }}
                 />
 
+                <CheckBox
+                    title='Current Time'
+                    checked={this.state.checked5}
+                    onPress={() => {
+                        this.state.current = 5
+                        this.checkSpeed()
+                    }}
+                />
+                
+                <Text style={styles.Text}>Contacts</Text>
+
                 <ContactsView/>
                 
                 <Button style={styles.link} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
@@ -76,34 +90,46 @@ export default class SettingsScreen extends React.Component {
 
     // check to see if 3 are already selected
     checkSpeed() {
-        // can always uncheck
         if (this.state.current == 1) {
             if (this.state.checked1) {
                 this.setState({ checked1: false })
+                GLOBAL.check1 = false;
                 return
             }
         }
         if (this.state.current == 2) {
             if (this.state.checked2) {
                 this.setState({ checked2: false })
+                GLOBAL.check2 = false;
                 return
             }
         }
         if (this.state.current == 3) {
             if (this.state.checked3) {
                 this.setState({ checked3: false })
+                GLOBAL.check3 = false;
                 return
             }
         }
         if (this.state.current == 4) {
             if (this.state.checked4) {
                 this.setState({ checked4: false })
+                GLOBAL.check4 = false;
+                return
+            }
+        }
+
+        if (this.state.current == 5) {
+            if (this.state.checked5) {
+                this.setState({ checked5: false })
+                GLOBAL.check5 = false;
                 return
             }
         }
 
         // can only check if 3 or less are checked
         count = 0
+
         if (this.state.checked1) {
             count++
         }
@@ -116,28 +142,38 @@ export default class SettingsScreen extends React.Component {
         if (this.state.checked4) {
             count++
         }
-
-        // console.log(count)
-        // console.log(this.state.checked1)
-        // console.log(this.state.current)
+        if (this.state.checked5) {
+            count++
+        }
 
         if (count == 3) {
             return
         }
+
         if (this.state.current == 1) {
             this.setState({ checked1: true })
+            GLOBAL.check1 = true;
             return
         }
         if (this.state.current == 2) {
             this.setState({ checked2: true })
+            GLOBAL.check2 = true;
             return
         }
         if (this.state.current == 3) {
             this.setState({ checked3: true })
+            GLOBAL.check3 = true;
             return
         }
         if (this.state.current == 4) {
             this.setState({ checked4: true })
+            GLOBAL.check4 = true;
+            return
+        }
+
+        if (this.state.current == 5) {
+            this.setState({ checked5: true })
+            GLOBAL.check5 = true;
             return
         }
 
