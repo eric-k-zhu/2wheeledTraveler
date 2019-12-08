@@ -6,20 +6,31 @@ import { API_KEY } from '../config';
 import { app } from '../config';
 import email from 'react-native-email'
 import GLOBAL from './global.js'
+import moment from 'moment';
 
 export default class RideScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            lat: "",
-            lng: "",
-            current: "",
+            lat: "", // lat of gas station
+            lng: "", // lng of gas station
+            current: "", // stores lat and lng of current location
+            currentTime: GLOBAL.curTime
             contacts:[]
         };
     }
 
     componentDidMount() {
+        setInterval(() => {
+            var time = moment().utcOffset('-05:00').format('hh:mm a');
+            this.setState({
+                currentTime: time
+            })
+            GLOBAL.curTime = time
+            this.getCurrentLocation()
+        }, 1000)
+    
         this._isMounted = true;
       
         app.database().ref(app.auth().currentUser.uid).on('value', (snapshot) => {
@@ -35,16 +46,14 @@ export default class RideScreen extends Component {
         // Get current location and pass it to findGas
         navigator.geolocation.getCurrentPosition(
             position => {
-                this.setState({ current: position }, function () {
-                    this.findGas();
-                });
+                this.setState({ current: position })
             }
         );
     }
 
     findGas() {
         // create lat long string
-        let curLocation = this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
+        let curLocation = this.state.current.coords["latitude"] + "," + this.state.current.coords["longitude"];
 
         // define url
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + curLocation + "&rankby=distance&type=gas_station&key=" + API_KEY;
@@ -103,9 +112,6 @@ export default class RideScreen extends Component {
     }
 
     sendEmail() {
-
-        // let url = `mailto:${"annatruelove97@gmail.com"}`;
-
         let subject = app.auth().currentUser.displayName + " has sent you their location"
         let body = "https://www.google.com/maps/place/" + this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
         
@@ -122,12 +128,12 @@ export default class RideScreen extends Component {
     render() {
         return (
             <View style={styles.main}>
-                <View>
-                    <SpeedSettings/>
+                <View style={styles.main}>
+                    <SpeedSettings />
                 </View>
 
-                <View style={styles.main}>
-                    <Button full success style={styles.button2} onPress={() => this.getCurrentLocation()}>
+                <View style={styles.bottom}>
+                    <Button full success style={styles.button2} onPress={() => this.findGas()}>
                         <Text style={styles.buttonText}>Find Gas Station</Text>
                     </Button>
 
@@ -144,50 +150,75 @@ export default class RideScreen extends Component {
     }
 }
 
-function SpeedSettings(){
-    var arr =[];
+function SpeedSettings() {
+    var arr = [];
 
-    if (GLOBAL.check1){
-        arr.push(<CurrentSpeed key='1'/>)
+    if (GLOBAL.check1) {
+        arr.push(<CurrentSpeed key='1' />)
     }
-    if (GLOBAL.check2){
-        arr.push(<CurrentTime key='2'/>)
+    if (GLOBAL.check2) {
+        arr.push(<MaxSpeed key='2' />)
     }
-    if (GLOBAL.check3){
-        arr.push(<AvgSpeed key='3'/>)
+    if (GLOBAL.check3) {
+        arr.push(<AvgSpeed key='3' />)
     }
-    if (GLOBAL.check4){
-        arr.push(<Distance key='4'/>)
+    if (GLOBAL.check4) {
+        arr.push(<Distance key='4' />)
     }
-    if (GLOBAL.check5){
-        arr.push(<MaxSpeed key='5'/>)
+    if (GLOBAL.check5) {
+        arr.push(<CurrentTime key='5' />)
     }
 
-    return(
+    return (
         <View>{arr}</View>
     );
 }
 
 // SPEED SETTINGS COMPONENTS
 
-function CurrentSpeed(){
-    return <Text style={styles.text}>CurrentSpeed</Text>
+function CurrentSpeed() {
+    return (
+        <View>
+            <Text style={styles.text2}>Current Speed:</Text>
+            <Button full success style={styles.button3}><Text style={styles.text}>Current Speed</Text></Button>
+        </View>
+    );
 }
 
-function CurrentTime(){
-    return <Text style={styles.text}>CurrentTime</Text>
+function CurrentTime() {
+    return (
+        <View>
+            <Text style={styles.text2}>Current Time:</Text>
+            <Button full success style={styles.button3}><Text style={styles.text}>{GLOBAL.curTime}</Text></Button>
+        </View>
+    );
 }
 
-function AvgSpeed(){
-    return <Text style={styles.text}>AvgSpeed</Text>
+function AvgSpeed() {
+    return (
+        <View>
+            <Text style={styles.text2}>Average Speed:</Text>
+            <Button full success style={styles.button3}><Text style={styles.text}>AvgSpeed</Text></Button>
+        </View>
+    );
 }
 
-function Distance(){
-    return <Text style={styles.text}>Distance</Text>
+function Distance() {
+    return (
+        <View>
+            <Text style={styles.text2}>Distance Traveled:</Text>
+            <Button full success style={styles.button3}><Text style={styles.text}>Distance Traveled</Text></Button>
+        </View>
+    );
 }
 
-function MaxSpeed(){
-    return <Text style={styles.text}>MaxSpeed</Text>
+function MaxSpeed() {
+    return (
+        <View>
+            <Text style={styles.text2}>Max Speed:</Text>
+            <Button full success style={styles.button3}><Text style={styles.text}>MaxSpeed</Text></Button>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -197,32 +228,56 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginTop: 30
     },
+    bottom: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        marginTop: 20
+    },
     buttonText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 25,
         textAlign: 'center'
     },
     button: {
-        backgroundColor: '#56ba58',
+        backgroundColor: 'red',
         marginTop: 10,
         marginBottom: 30,
-        paddingRight: 10
+        width: 300,
+        height: 75,
+        alignSelf: 'center'
     },
     button2: {
-        backgroundColor: '#9fe3a0',
+        backgroundColor: '#56ba58',
         marginTop: 10,
         marginBottom: 30,
         width: 300,
         height: 100,
         alignSelf: 'center'
     },
+    button3: {
+        backgroundColor: 'white',
+        borderColor: '#56ba58',
+        borderWidth: 3,
+        marginTop: 20,
+        marginBottom: 30,
+        width: 300,
+        height: 75,
+        alignSelf: 'center',
+        textAlign: 'center'
+    },
     headingText: {
         color: 'black',
         fontWeight: 'bold',
         fontSize: 24
-    }, 
+    },
     text: {
-        marginTop: 30,
+        color: 'black',
+        fontSize: 40,
         textAlign: 'center'
+    },
+    text2: {
+        textAlign: 'center',
+        fontSize: 15
     }
 });
