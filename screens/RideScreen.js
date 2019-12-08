@@ -6,6 +6,7 @@ import { API_KEY } from '../config';
 import { app } from '../config';
 import email from 'react-native-email'
 import GLOBAL from './global.js'
+import moment from 'moment';
 
 export default class RideScreen extends Component {
 
@@ -14,9 +15,23 @@ export default class RideScreen extends Component {
         this.state = {
             lat: "",
             lng: "",
-            current: ""
+            current: "",
+            currentTime: GLOBAL.curTime
         };
     }
+
+
+    componentDidMount() {
+
+        setInterval(() => {
+            var time = moment().utcOffset('-05:00').format('hh:mm a');
+            this.setState({
+                currentTime: time
+            })
+            GLOBAL.curTime = time
+        }, 1000)
+    }
+
 
     getCurrentLocation() {
         // Get current location and pass it to findGas
@@ -107,7 +122,7 @@ export default class RideScreen extends Component {
         return (
             <View style={styles.main}>
                 <View>
-                    <SpeedSettings/>
+                    <SpeedSettings />
                 </View>
 
                 <View style={styles.main}>
@@ -128,49 +143,49 @@ export default class RideScreen extends Component {
     }
 }
 
-function SpeedSettings(){
-    var arr =[];
+function SpeedSettings() {
+    var arr = [];
 
-    if (GLOBAL.check1){
-        arr.push(<CurrentSpeed key='1'/>)
+    if (GLOBAL.check1) {
+        arr.push(<CurrentSpeed key='1' />)
     }
-    if (GLOBAL.check2){
-        arr.push(<CurrentTime key='2'/>)
+    if (GLOBAL.check2) {
+        arr.push(<MaxSpeed key='2' />)
     }
-    if (GLOBAL.check3){
-        arr.push(<AvgSpeed key='3'/>)
+    if (GLOBAL.check3) {
+        arr.push(<AvgSpeed key='3' />)
     }
-    if (GLOBAL.check4){
-        arr.push(<Distance key='4'/>)
+    if (GLOBAL.check4) {
+        arr.push(<Distance key='4' />)
     }
-    if (GLOBAL.check5){
-        arr.push(<MaxSpeed key='5'/>)
+    if (GLOBAL.check5) {
+        arr.push(<CurrentTime key='5' />)
     }
 
-    return(
+    return (
         <View>{arr}</View>
     );
 }
 
 // SPEED SETTINGS COMPONENTS
 
-function CurrentSpeed(){
+function CurrentSpeed() {
     return <Text style={styles.text}>CurrentSpeed</Text>
 }
 
-function CurrentTime(){
-    return <Text style={styles.text}>CurrentTime</Text>
+function CurrentTime() {
+    return <Text style={styles.text}>{GLOBAL.curTime}</Text>
 }
 
-function AvgSpeed(){
+function AvgSpeed() {
     return <Text style={styles.text}>AvgSpeed</Text>
 }
 
-function Distance(){
+function Distance() {
     return <Text style={styles.text}>Distance</Text>
 }
 
-function MaxSpeed(){
+function MaxSpeed() {
     return <Text style={styles.text}>MaxSpeed</Text>
 }
 
@@ -204,7 +219,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: 'bold',
         fontSize: 24
-    }, 
+    },
     text: {
         marginTop: 30,
         textAlign: 'center'
