@@ -50,7 +50,7 @@ export default class RideScreen extends Component {
         GLOBAL.curSpeed = this.state.current.coords["speed"];
 
         if(GLOBAL.curSpeed > GLOBAL.maxSpeed){
-            GLOBAL.maxSpeed = GLOBAL.curSpeed
+            GLOBAL.maxSpeed = Math.ceil(GLOBAL.curSpeed)
         }
     }
 
