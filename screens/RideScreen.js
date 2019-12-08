@@ -15,9 +15,13 @@ export default class RideScreen extends Component {
         this.state = {
             lat: "", // lat of gas station
             lng: "", // lng of gas station
-            current: "", // stores lat and lng of current location
+            current: {
+                "coords": {
+                    "speed": 0
+                }
+            }, // stores lat and lng of current location
             currentTime: GLOBAL.curTime,
-            contacts:[]
+            contacts: []
         };
     }
 
@@ -30,16 +34,24 @@ export default class RideScreen extends Component {
             GLOBAL.curTime = time
             this.getCurrentLocation()
         }, 1000)
-    
+
         this._isMounted = true;
-      
+
         app.database().ref(app.auth().currentUser.uid).on('value', (snapshot) => {
             if (this._isMounted) {
                 let data = snapshot.val();
                 let contacts = Object.values(data);
-                this.setState({contacts:contacts});
-              }
-         });
+                this.setState({ contacts: contacts });
+            }
+        });
+    }
+
+    getSpeed() {
+        GLOBAL.curSpeed = this.state.current.coords["speed"];
+
+        if(GLOBAL.curSpeed > GLOBAL.maxSpeed){
+            GLOBAL.maxSpeed = GLOBAL.curSpeed
+        }
     }
 
     getCurrentLocation() {
@@ -47,8 +59,11 @@ export default class RideScreen extends Component {
         navigator.geolocation.getCurrentPosition(
             position => {
                 this.setState({ current: position })
-            }
+            },
+            enableHighAccuracy = true
         );
+
+        this.getSpeed()
     }
 
     findGas() {
@@ -73,7 +88,6 @@ export default class RideScreen extends Component {
     }
 
     popUp() {
-
         // confirmation pop up: adding gas to your route
         Alert.alert(
             'Rerouting to Gas Station',
@@ -114,13 +128,13 @@ export default class RideScreen extends Component {
     sendEmail() {
         let subject = app.auth().currentUser.displayName + " has sent you their location"
         let body = "https://www.google.com/maps/place/" + this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
-        
+
 
         let to = this.state.contacts.map(contact => contact.contactEmail) // string or array of email addresses
-        email(to.slice(0,1), {
+        email(to.slice(0, 1), {
             subject: subject,
             body: body,
-            bcc: to.slice(1,)
+            bcc: to.slice(1)
         }).catch(console.error)
     }
 
@@ -179,7 +193,10 @@ function CurrentSpeed() {
     return (
         <View>
             <Text style={styles.text2}>Current Speed:</Text>
-            <Button full success style={styles.button3}><Text style={styles.text}>Current Speed</Text></Button>
+    <Button full success style={styles.button3}><Text style={styles.text}>
+                    {GLOBAL.curSpeed == -1
+                    ? GLOBAL.curSpeed = 0
+                    : GLOBAL.curSpeed = Math.ceil(GLOBAL.curSpeed)} mph</Text></Button>
         </View>
     );
 }
@@ -206,7 +223,7 @@ function Distance() {
     return (
         <View>
             <Text style={styles.text2}>Distance Traveled:</Text>
-            <Button full success style={styles.button3}><Text style={styles.text}>Distance Traveled</Text></Button>
+            <Button full success style={styles.button3}><Text style={styles.text}>Distance</Text></Button>
         </View>
     );
 }
@@ -215,7 +232,7 @@ function MaxSpeed() {
     return (
         <View>
             <Text style={styles.text2}>Max Speed:</Text>
-            <Button full success style={styles.button3}><Text style={styles.text}>MaxSpeed</Text></Button>
+            <Button full success style={styles.button3}><Text style={styles.text}>{GLOBAL.maxSpeed} mph</Text></Button>
         </View>
     );
 }
