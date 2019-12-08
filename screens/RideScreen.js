@@ -3,8 +3,11 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { API_KEY } from '../config';
+import { app } from '../config';
+import email from 'react-native-email'
+import GLOBAL from './global.js'
 
-export default class MapScreen extends Component {
+export default class RideScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +22,6 @@ export default class MapScreen extends Component {
         // Get current location and pass it to findGas
         navigator.geolocation.getCurrentPosition(
             position => {
-                //this.setState({ current: position });
                 this.setState({ current: position }, function () {
                     this.findGas();
                 });
@@ -69,24 +71,53 @@ export default class MapScreen extends Component {
 
     }
 
-    navGas(){
+    navGas() {
         // navigate to closest gas station
         var address = this.state.lat + "," + this.state.lng;
         openMap({ provider: "google", end: address, navigate_mode: "navigate" });
     }
 
     // work on function to send current location to SMS
+    sendLocation() {
+        // Get current location and pass it to findGas
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.setState({ current: position }, function () {
+                    this.sendEmail();
+                });
+            }
+        );
+    }
+
+    sendEmail() {
+
+        // let url = `mailto:${"annatruelove97@gmail.com"}`;
+
+        let subject = app.auth().currentUser.displayName + " has sent you their location"
+        let body = "https://www.google.com/maps/place/" + this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
+
+        const to = ['annatruelove97@gmail.com'] // string or array of email addresses
+        email(to, {
+            subject: subject,
+            body: body
+        }).catch(console.error)
+    }
 
     render() {
         return (
             <View style={styles.main}>
+                <View>
+                    <SpeedSettings/>
+                </View>
 
                 <View style={styles.main}>
                     <Button full success style={styles.button2} onPress={() => this.getCurrentLocation()}>
                         <Text style={styles.buttonText}>Find Gas Station</Text>
                     </Button>
 
-                    <Text style={{ textAlign: 'center' }}>Send Location</Text>
+                    <Button full success style={styles.button2} onPress={() => this.sendLocation()}>
+                        <Text style={styles.buttonText}>Send Location</Text>
+                    </Button>
 
                     <Button full rounded success style={styles.button} onPress={() => this.props.navigation.navigate('ProfileScreen')}>
                         <Text style={styles.buttonText}>End Ride</Text>
@@ -95,6 +126,52 @@ export default class MapScreen extends Component {
             </View>
         )
     }
+}
+
+function SpeedSettings(){
+    var arr =[];
+
+    if (GLOBAL.check1){
+        arr.push(<CurrentSpeed key='1'/>)
+    }
+    if (GLOBAL.check2){
+        arr.push(<CurrentTime key='2'/>)
+    }
+    if (GLOBAL.check3){
+        arr.push(<AvgSpeed key='3'/>)
+    }
+    if (GLOBAL.check4){
+        arr.push(<Distance key='4'/>)
+    }
+    if (GLOBAL.check5){
+        arr.push(<MaxSpeed key='5'/>)
+    }
+
+    return(
+        <View>{arr}</View>
+    );
+}
+
+// SPEED SETTINGS COMPONENTS
+
+function CurrentSpeed(){
+    return <Text style={styles.text}>CurrentSpeed</Text>
+}
+
+function CurrentTime(){
+    return <Text style={styles.text}>CurrentTime</Text>
+}
+
+function AvgSpeed(){
+    return <Text style={styles.text}>AvgSpeed</Text>
+}
+
+function Distance(){
+    return <Text style={styles.text}>Distance</Text>
+}
+
+function MaxSpeed(){
+    return <Text style={styles.text}>MaxSpeed</Text>
 }
 
 const styles = StyleSheet.create({
@@ -116,7 +193,7 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     button2: {
-        backgroundColor: '#82CAFF',
+        backgroundColor: '#9fe3a0',
         marginTop: 10,
         marginBottom: 30,
         width: 300,
@@ -127,5 +204,9 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: 'bold',
         fontSize: 24
+    }, 
+    text: {
+        marginTop: 30,
+        textAlign: 'center'
     }
 });
