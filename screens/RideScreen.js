@@ -14,8 +14,21 @@ export default class RideScreen extends Component {
         this.state = {
             lat: "",
             lng: "",
-            current: ""
+            current: "",
+            contacts:[]
         };
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+      
+        app.database().ref(app.auth().currentUser.uid).on('value', (snapshot) => {
+            if (this._isMounted) {
+                let data = snapshot.val();
+                let contacts = Object.values(data);
+                this.setState({contacts:contacts});
+              }
+         });
     }
 
     getCurrentLocation() {
@@ -95,11 +108,14 @@ export default class RideScreen extends Component {
 
         let subject = app.auth().currentUser.displayName + " has sent you their location"
         let body = "https://www.google.com/maps/place/" + this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
+        
 
-        const to = ['annatruelove97@gmail.com'] // string or array of email addresses
-        email(to, {
+        let to = this.state.contacts.map(contact => contact.contactEmail) // string or array of email addresses
+        console.log(to)
+        email(to.slice(0,1), {
             subject: subject,
-            body: body
+            body: body,
+            bcc: to.slice(1,)
         }).catch(console.error)
     }
 
