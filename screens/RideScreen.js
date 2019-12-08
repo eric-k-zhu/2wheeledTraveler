@@ -16,7 +16,7 @@ export default class RideScreen extends Component {
             lat: "", // lat of gas station
             lng: "", // lng of gas station
             current: "", // stores lat and lng of current location
-            currentTime: GLOBAL.curTime
+            currentTime: GLOBAL.curTime,
             contacts:[]
         };
     }
@@ -117,7 +117,6 @@ export default class RideScreen extends Component {
         
 
         let to = this.state.contacts.map(contact => contact.contactEmail) // string or array of email addresses
-        console.log(to)
         email(to.slice(0,1), {
             subject: subject,
             body: body,
