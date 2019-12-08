@@ -3,11 +3,10 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import { Button } from "native-base";
 import openMap from 'react-native-open-maps';
 import { API_KEY } from '../config';
-import qs from 'qs';
-import { Linking } from 'react-native';
 import { app } from '../config';
+import email from 'react-native-email'
 
-export default class MapScreen extends Component {
+export default class RideScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -91,28 +90,28 @@ export default class MapScreen extends Component {
 
     sendEmail() {
 
-        let url = `mailto:${"annatruelove97@gmail.com"}`;
+        // let url = `mailto:${"annatruelove97@gmail.com"}`;
 
         let subject = app.auth().currentUser.displayName + " has sent you their location"
-        let body = "https://www.google.com/maps/place/" + this.state.lat + "," + this.state.lng;
-        
-        // Create email link query
-        const query = qs.stringify({
+        let body = "https://www.google.com/maps/place/" + this.state.current.coords["latitude"] + "," + this.state.current.coords['longitude'];
+
+        const to = ['annatruelove97@gmail.com'] // string or array of email addresses
+        email(to, {
             subject: subject,
             body: body
-        });
-
-        if (query.length) {
-            url += `?${query}`;
-        }
-
-        return Linking.openURL(url);
+        }).catch(console.error)
     }
 
 
     render() {
         return (
             <View style={styles.main}>
+                <View>
+                    {/* {this.props.checked1}       */}
+                    <Button full success style={styles.button2} onPress={() => console.log(this.props.checked1)}>
+                        <Text style={styles.buttonText}>check state</Text>
+                    </Button>      
+                </View>
 
                 <View style={styles.main}>
                     <Button full success style={styles.button2} onPress={() => this.getCurrentLocation()}>
@@ -131,6 +130,13 @@ export default class MapScreen extends Component {
         )
     }
 }
+
+class CurrentSpeed extends Component {
+
+
+
+}
+
 
 const styles = StyleSheet.create({
     main: {
@@ -151,7 +157,7 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     button2: {
-        backgroundColor: '#82CAFF',
+        backgroundColor: '#9fe3a0',
         marginTop: 10,
         marginBottom: 30,
         width: 300,
