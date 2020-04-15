@@ -49,6 +49,12 @@ Our project website is: (http://2wheeledtraveler.web.unc.edu/)
 - Implemented email authentication
 - Wrote tests and produced test coverage report
 - Styled the Login & Registration Screens
+- Implemented speed settings on Settings screen
+- Set up deep link navigation and Google Places Autocomplete
+- Implemented RideScreen which included:
+• Setting up reroute to gas station
+• Sending current location to contact list emails
+• Displaying current speed, max speed, and current time
 
 [Eric Zhu](https://github.com/eric-k-zhu)
 - UI Lead
